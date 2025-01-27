@@ -12,6 +12,7 @@
 #include "esp_task_wdt.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "esp_log.h"
 
 /**
  * @brief Initialize the Task Watchdog Timer (TWT).
@@ -72,4 +73,15 @@ void rtos_watchdog_remove_task(TaskHandle_t task_handle) {
     if (err != ESP_OK) {
         printf("Failed to remove task from watchdog: %d\n", err);
     }
+}
+
+/**
+ * @brief Deinitialize the RTOS Watchdog.
+ *
+ * Stops the Task Watchdog Timer (TWDT) and removes tasks from its monitoring list.
+ */
+void rtos_watchdog_deinit() {
+    esp_task_wdt_delete(NULL); // Remove the current task from TWDT
+    esp_task_wdt_deinit();     // Deinitialize the Task Watchdog Timer
+    ESP_LOGI("RTOS_Watchdog", "Watchdog deinitialized.");
 }

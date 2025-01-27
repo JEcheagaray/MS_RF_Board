@@ -48,4 +48,12 @@ void rtos_watchdog_add_task(TaskHandle_t task_handle);
  */
 void rtos_watchdog_remove_task(TaskHandle_t task_handle);
 
+/**
+ * @brief Deinitialize the RTOS Watchdog.
+ *
+ * Stops the Task Watchdog Timer (TWDT) and removes tasks from its monitoring list.
+ */
+void rtos_watchdog_deinit(void);
+
+
 #endif // RTOS_WATCHDOG_H
