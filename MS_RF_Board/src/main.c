@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "rtos_watchdog.h" // Include Watchdog header
 
 // Include headers for all SWCs
 #include "bluetooth.h"
@@ -44,6 +45,7 @@ void task_100ms_core_0(void *params) {
     bluetooth_init();
     while (1) {
         bluetooth_run();  ///< Run Bluetooth communication.
+        rtos_watchdog_feed(); // Feed the watchdog
         vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
@@ -59,6 +61,7 @@ void task_10000ms_core_0(void *params) {
     diagnostics_init();
     while (1) {
         diagnostics_run();  ///< Run diagnostics and logging.
+        rtos_watchdog_feed(); // Feed the watchdog
         vTaskDelay(pdMS_TO_TICKS(10000));
     }
 }
@@ -74,6 +77,7 @@ void task_1ms_core_1(void *params) {
     gate_driver_control_init();
     while (1) {
         gate_driver_control_run();  ///< Run gate driver control.
+        rtos_watchdog_feed(); // Feed the watchdog
         vTaskDelay(pdMS_TO_TICKS(1));
     }
 }
@@ -91,6 +95,7 @@ void task_10ms_core_1(void *params) {
     while (1) {
         voltage_sensing_run();  ///< Run voltage sensing and regulation.
         current_sensing_run();  ///< Run current sensing and safety monitoring.
+        rtos_watchdog_feed(); // Feed the watchdog
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
@@ -106,6 +111,7 @@ void task_1000ms_core_1(void *params) {
     battery_monitoring_init();
     while (1) {
         battery_monitoring_run();  ///< Run battery monitoring.
+        rtos_watchdog_feed(); // Feed the watchdog
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -122,6 +128,9 @@ void app_main() {
 
     // Initialize non-volatile memory
     nvm_init();
+
+    // Initialize the watchdog with a 5-second timeout
+    rtos_watchdog_init(5);
 
     // Create tasks for Core 0
     xTaskCreatePinnedToCore(task_100ms_core_0, "Task_100ms_Core_0", 2048, NULL, 1, &task_100ms_core_0_handle, 0);
