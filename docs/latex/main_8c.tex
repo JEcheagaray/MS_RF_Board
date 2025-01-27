@@ -1,0 +1,243 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{MS\_RF\_Board/src/main.c@{MS\_RF\_Board/src/main.c}}
+
+
+Main application entry point for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}bluetooth.\+h"{}}\newline
+{\ttfamily \#include "{}diagnostics.\+h"{}}\newline
+{\ttfamily \#include "{}command\+\_\+parser.\+h"{}}\newline
+{\ttfamily \#include "{}gate\+\_\+driver\+\_\+control.\+h"{}}\newline
+{\ttfamily \#include "{}voltage\+\_\+sensing.\+h"{}}\newline
+{\ttfamily \#include "{}current\+\_\+sensing.\+h"{}}\newline
+{\ttfamily \#include "{}battery\+\_\+monitoring.\+h"{}}\newline
+{\ttfamily \#include "{}error\+\_\+handling.\+h"{}}\newline
+{\ttfamily \#include "{}nvm.\+h"{}}\newline
+{\ttfamily \#include "{}rtos.\+h"{}}\newline
+{\ttfamily \#include "{}system\+\_\+config.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8c_a11531d4195afbeb4070844551f4efe59}{task\+\_\+100ms\+\_\+core\+\_\+0}} (void \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Task for handling Bluetooth communication (Core 0, 100 ms). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_a920d3401577972e36e824c6ec1f04e0e}{task\+\_\+10000ms\+\_\+core\+\_\+0}} (void \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Task for handling diagnostics and logging (Core 0, 10,000 ms). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_a0df59fb6b2d6819db5315bf1c56689db}{task\+\_\+1ms\+\_\+core\+\_\+1}} (void \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Task for controlling the gate driver (Core 1, 1 ms). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_a990cdfaec63ebb89611798afecc113bf}{task\+\_\+10ms\+\_\+core\+\_\+1}} (void \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Task for voltage and current sensing (Core 1, 10 ms). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_ac2bc05d0f44ca184f5cbb45962eb2ec2}{task\+\_\+1000ms\+\_\+core\+\_\+1}} (void \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Task for monitoring battery state of charge (Core 1, 1,000 ms). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_abce06be17fc37d675118a678a8100a36}{app\+\_\+main}} ()
+\begin{DoxyCompactList}\small\item\em Main application entry point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8c_a548346db433ba3f496a189842971b1e3}{task\+\_\+100ms\+\_\+core\+\_\+0\+\_\+handle}}
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8c_ad6d02e7c811a898d5e1db16d8b5496fe}{task\+\_\+10000ms\+\_\+core\+\_\+0\+\_\+handle}}
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8c_aa58ee67936969bd6018552231bc55db4}{task\+\_\+1ms\+\_\+core\+\_\+1\+\_\+handle}}
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8c_a48329b1e834d2cbc1cb2b3eccc655c86}{task\+\_\+10ms\+\_\+core\+\_\+1\+\_\+handle}}
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8c_aca02c77342adb30689bc66b1d980756d}{task\+\_\+1000ms\+\_\+core\+\_\+1\+\_\+handle}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main application entry point for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This file initializes the system, creates Free\+RTOS tasks, and assigns them to cores. Tasks are grouped by periodicity and handle specific functionalities.
+
+\begin{DoxyAuthor}{Author}
+Jorge 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8c_abce06be17fc37d675118a678a8100a36}\index{main.c@{main.c}!app\_main@{app\_main}}
+\index{app\_main@{app\_main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{app\_main()}{app\_main()}}
+{\footnotesize\ttfamily \label{main_8c_abce06be17fc37d675118a678a8100a36} 
+void app\+\_\+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Main application entry point. 
+
+Initializes the system, sets up non-\/volatile memory, and creates Free\+RTOS tasks for both cores. 
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00119}{119}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a920d3401577972e36e824c6ec1f04e0e}\index{main.c@{main.c}!task\_10000ms\_core\_0@{task\_10000ms\_core\_0}}
+\index{task\_10000ms\_core\_0@{task\_10000ms\_core\_0}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_10000ms\_core\_0()}{task\_10000ms\_core\_0()}}
+{\footnotesize\ttfamily \label{main_8c_a920d3401577972e36e824c6ec1f04e0e} 
+void task\+\_\+10000ms\+\_\+core\+\_\+0 (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+
+
+Task for handling diagnostics and logging (Core 0, 10,000 ms). 
+
+Manages system diagnostics, error logging, and status reporting.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Task parameters (unused). \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Run diagnostics and logging.
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00058}{58}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_ac2bc05d0f44ca184f5cbb45962eb2ec2}\index{main.c@{main.c}!task\_1000ms\_core\_1@{task\_1000ms\_core\_1}}
+\index{task\_1000ms\_core\_1@{task\_1000ms\_core\_1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_1000ms\_core\_1()}{task\_1000ms\_core\_1()}}
+{\footnotesize\ttfamily \label{main_8c_ac2bc05d0f44ca184f5cbb45962eb2ec2} 
+void task\+\_\+1000ms\+\_\+core\+\_\+1 (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+
+
+Task for monitoring battery state of charge (Core 1, 1,000 ms). 
+
+Reads the battery voltage to determine the state of charge (SOC).
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Task parameters (unused). \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Run battery monitoring.
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00105}{105}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a11531d4195afbeb4070844551f4efe59}\index{main.c@{main.c}!task\_100ms\_core\_0@{task\_100ms\_core\_0}}
+\index{task\_100ms\_core\_0@{task\_100ms\_core\_0}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_100ms\_core\_0()}{task\_100ms\_core\_0()}}
+{\footnotesize\ttfamily \label{main_8c_a11531d4195afbeb4070844551f4efe59} 
+void task\+\_\+100ms\+\_\+core\+\_\+0 (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+
+
+Task for handling Bluetooth communication (Core 0, 100 ms). 
+
+Initializes Bluetooth functionality and manages periodic communication with the mobile app.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Task parameters (unused). \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Run Bluetooth communication.
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00043}{43}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a990cdfaec63ebb89611798afecc113bf}\index{main.c@{main.c}!task\_10ms\_core\_1@{task\_10ms\_core\_1}}
+\index{task\_10ms\_core\_1@{task\_10ms\_core\_1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_10ms\_core\_1()}{task\_10ms\_core\_1()}}
+{\footnotesize\ttfamily \label{main_8c_a990cdfaec63ebb89611798afecc113bf} 
+void task\+\_\+10ms\+\_\+core\+\_\+1 (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+
+
+Task for voltage and current sensing (Core 1, 10 ms). 
+
+Monitors and regulates output voltage and current to ensure safe operation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Task parameters (unused). \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Run voltage sensing and regulation.
+
+\texorpdfstring{$<$}{<} Run current sensing and safety monitoring.
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00088}{88}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a0df59fb6b2d6819db5315bf1c56689db}\index{main.c@{main.c}!task\_1ms\_core\_1@{task\_1ms\_core\_1}}
+\index{task\_1ms\_core\_1@{task\_1ms\_core\_1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_1ms\_core\_1()}{task\_1ms\_core\_1()}}
+{\footnotesize\ttfamily \label{main_8c_a0df59fb6b2d6819db5315bf1c56689db} 
+void task\+\_\+1ms\+\_\+core\+\_\+1 (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{params}{}\end{DoxyParamCaption})}
+
+
+
+Task for controlling the gate driver (Core 1, 1 ms). 
+
+Generates gate signals for the MOSFET to control output frequency and voltage.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Task parameters (unused). \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Run gate driver control.
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00073}{73}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8c_ad6d02e7c811a898d5e1db16d8b5496fe}\index{main.c@{main.c}!task\_10000ms\_core\_0\_handle@{task\_10000ms\_core\_0\_handle}}
+\index{task\_10000ms\_core\_0\_handle@{task\_10000ms\_core\_0\_handle}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_10000ms\_core\_0\_handle}{task\_10000ms\_core\_0\_handle}}
+{\footnotesize\ttfamily \label{main_8c_ad6d02e7c811a898d5e1db16d8b5496fe} 
+Task\+Handle\+\_\+t task\+\_\+10000ms\+\_\+core\+\_\+0\+\_\+handle}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00031}{31}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_aca02c77342adb30689bc66b1d980756d}\index{main.c@{main.c}!task\_1000ms\_core\_1\_handle@{task\_1000ms\_core\_1\_handle}}
+\index{task\_1000ms\_core\_1\_handle@{task\_1000ms\_core\_1\_handle}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_1000ms\_core\_1\_handle}{task\_1000ms\_core\_1\_handle}}
+{\footnotesize\ttfamily \label{main_8c_aca02c77342adb30689bc66b1d980756d} 
+Task\+Handle\+\_\+t task\+\_\+1000ms\+\_\+core\+\_\+1\+\_\+handle}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00034}{34}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a548346db433ba3f496a189842971b1e3}\index{main.c@{main.c}!task\_100ms\_core\_0\_handle@{task\_100ms\_core\_0\_handle}}
+\index{task\_100ms\_core\_0\_handle@{task\_100ms\_core\_0\_handle}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_100ms\_core\_0\_handle}{task\_100ms\_core\_0\_handle}}
+{\footnotesize\ttfamily \label{main_8c_a548346db433ba3f496a189842971b1e3} 
+Task\+Handle\+\_\+t task\+\_\+100ms\+\_\+core\+\_\+0\+\_\+handle}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00030}{30}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a48329b1e834d2cbc1cb2b3eccc655c86}\index{main.c@{main.c}!task\_10ms\_core\_1\_handle@{task\_10ms\_core\_1\_handle}}
+\index{task\_10ms\_core\_1\_handle@{task\_10ms\_core\_1\_handle}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_10ms\_core\_1\_handle}{task\_10ms\_core\_1\_handle}}
+{\footnotesize\ttfamily \label{main_8c_a48329b1e834d2cbc1cb2b3eccc655c86} 
+Task\+Handle\+\_\+t task\+\_\+10ms\+\_\+core\+\_\+1\+\_\+handle}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00033}{33}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_aa58ee67936969bd6018552231bc55db4}\index{main.c@{main.c}!task\_1ms\_core\_1\_handle@{task\_1ms\_core\_1\_handle}}
+\index{task\_1ms\_core\_1\_handle@{task\_1ms\_core\_1\_handle}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{task\_1ms\_core\_1\_handle}{task\_1ms\_core\_1\_handle}}
+{\footnotesize\ttfamily \label{main_8c_aa58ee67936969bd6018552231bc55db4} 
+Task\+Handle\+\_\+t task\+\_\+1ms\+\_\+core\+\_\+1\+\_\+handle}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00032}{32}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
