@@ -1,0 +1,170 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Battery\+Monitoring/battery\+\_\+monitoring.c File Reference}
+\hypertarget{battery__monitoring_8c}{}\label{battery__monitoring_8c}\index{MS\_RF\_Board/src/BatteryMonitoring/battery\_monitoring.c@{MS\_RF\_Board/src/BatteryMonitoring/battery\_monitoring.c}}
+
+
+Battery Monitoring Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include "{}battery\+\_\+monitoring.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+adc/adc\+\_\+oneshot.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+adc/adc\+\_\+cali.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+adc/adc\+\_\+cali\+\_\+scheme.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}}~"{}Battery\+Monitoring"{}
+\item 
+\#define \mbox{\hyperlink{battery__monitoring_8c_a5a03d0b939a8dda552c9fe3319a82485}{ADC\+\_\+\+VREF}}~1100
+\item 
+\#define \mbox{\hyperlink{battery__monitoring_8c_acd551a81feacd3e44e123c52c05c359a}{VOLTAGE\+\_\+\+DIVIDER\+\_\+\+RATIO}}~2.\+0
+\item 
+\#define \mbox{\hyperlink{battery__monitoring_8c_a392d4d4f4c4962ec6a2bb89d1ddfa4cf}{BATTERY\+\_\+\+FULL\+\_\+\+VOLTAGE}}~12.\+6
+\item 
+\#define \mbox{\hyperlink{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d}{BATTERY\+\_\+\+EMPTY\+\_\+\+VOLTAGE}}~9.\+0
+\item 
+\#define \mbox{\hyperlink{battery__monitoring_8c_ab49d7a0f5aa87090664546312512f48e}{BATTERY\+\_\+\+ADC\+\_\+\+CHANNEL}}~ADC\+\_\+\+CHANNEL\+\_\+9
+\item 
+\#define \mbox{\hyperlink{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}{DEBOUNCE\+\_\+\+SAMPLES}}~5
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{battery__monitoring_8c_a8f794cf4b48a2003145360fb98579c0b}{battery\+\_\+monitoring\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the battery monitoring module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{battery__monitoring_8c_a124a3be10511ec33d67d0a74a3ce6f62}{battery\+\_\+monitoring\+\_\+run}} ()
+\begin{DoxyCompactList}\small\item\em Run the battery monitoring task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{battery__monitoring_8c_aa17e09403491958eece96ac0a9ed50a5}{battery\+\_\+monitoring\+\_\+deinit}} ()
+\begin{DoxyCompactList}\small\item\em Deinitialize the battery monitoring module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Battery Monitoring Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This module monitors the battery voltage of the MS\+\_\+\+RF\+\_\+\+Board, which uses three 18650 batteries in series. It calculates the state of charge (SOC) based on the debounced voltage readings and logs the battery status.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{battery__monitoring_8c_a5a03d0b939a8dda552c9fe3319a82485}\index{battery\_monitoring.c@{battery\_monitoring.c}!ADC\_VREF@{ADC\_VREF}}
+\index{ADC\_VREF@{ADC\_VREF}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{ADC\_VREF}{ADC\_VREF}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_a5a03d0b939a8dda552c9fe3319a82485} 
+\#define ADC\+\_\+\+VREF~1100}
+
+
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00020}{20}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_ab49d7a0f5aa87090664546312512f48e}\index{battery\_monitoring.c@{battery\_monitoring.c}!BATTERY\_ADC\_CHANNEL@{BATTERY\_ADC\_CHANNEL}}
+\index{BATTERY\_ADC\_CHANNEL@{BATTERY\_ADC\_CHANNEL}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{BATTERY\_ADC\_CHANNEL}{BATTERY\_ADC\_CHANNEL}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_ab49d7a0f5aa87090664546312512f48e} 
+\#define BATTERY\+\_\+\+ADC\+\_\+\+CHANNEL~ADC\+\_\+\+CHANNEL\+\_\+9}
+
+
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00028}{28}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d}\index{battery\_monitoring.c@{battery\_monitoring.c}!BATTERY\_EMPTY\_VOLTAGE@{BATTERY\_EMPTY\_VOLTAGE}}
+\index{BATTERY\_EMPTY\_VOLTAGE@{BATTERY\_EMPTY\_VOLTAGE}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{BATTERY\_EMPTY\_VOLTAGE}{BATTERY\_EMPTY\_VOLTAGE}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d} 
+\#define BATTERY\+\_\+\+EMPTY\+\_\+\+VOLTAGE~9.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00025}{25}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_a392d4d4f4c4962ec6a2bb89d1ddfa4cf}\index{battery\_monitoring.c@{battery\_monitoring.c}!BATTERY\_FULL\_VOLTAGE@{BATTERY\_FULL\_VOLTAGE}}
+\index{BATTERY\_FULL\_VOLTAGE@{BATTERY\_FULL\_VOLTAGE}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{BATTERY\_FULL\_VOLTAGE}{BATTERY\_FULL\_VOLTAGE}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_a392d4d4f4c4962ec6a2bb89d1ddfa4cf} 
+\#define BATTERY\+\_\+\+FULL\+\_\+\+VOLTAGE~12.\+6}
+
+
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00024}{24}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}\index{battery\_monitoring.c@{battery\_monitoring.c}!DEBOUNCE\_SAMPLES@{DEBOUNCE\_SAMPLES}}
+\index{DEBOUNCE\_SAMPLES@{DEBOUNCE\_SAMPLES}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{DEBOUNCE\_SAMPLES}{DEBOUNCE\_SAMPLES}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e} 
+\#define DEBOUNCE\+\_\+\+SAMPLES~5}
+
+
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00031}{31}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}\index{battery\_monitoring.c@{battery\_monitoring.c}!TAG@{TAG}}
+\index{TAG@{TAG}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{TAG}{TAG}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2} 
+\#define TAG~"{}Battery\+Monitoring"{}}
+
+
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00017}{17}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_acd551a81feacd3e44e123c52c05c359a}\index{battery\_monitoring.c@{battery\_monitoring.c}!VOLTAGE\_DIVIDER\_RATIO@{VOLTAGE\_DIVIDER\_RATIO}}
+\index{VOLTAGE\_DIVIDER\_RATIO@{VOLTAGE\_DIVIDER\_RATIO}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{VOLTAGE\_DIVIDER\_RATIO}{VOLTAGE\_DIVIDER\_RATIO}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_acd551a81feacd3e44e123c52c05c359a} 
+\#define VOLTAGE\+\_\+\+DIVIDER\+\_\+\+RATIO~2.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00021}{21}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{battery__monitoring_8c_aa17e09403491958eece96ac0a9ed50a5}\index{battery\_monitoring.c@{battery\_monitoring.c}!battery\_monitoring\_deinit@{battery\_monitoring\_deinit}}
+\index{battery\_monitoring\_deinit@{battery\_monitoring\_deinit}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{battery\_monitoring\_deinit()}{battery\_monitoring\_deinit()}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_aa17e09403491958eece96ac0a9ed50a5} 
+void battery\+\_\+monitoring\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the battery monitoring module. 
+
+Cleans up resources used by the battery monitoring module. 
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00169}{169}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_a8f794cf4b48a2003145360fb98579c0b}\index{battery\_monitoring.c@{battery\_monitoring.c}!battery\_monitoring\_init@{battery\_monitoring\_init}}
+\index{battery\_monitoring\_init@{battery\_monitoring\_init}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{battery\_monitoring\_init()}{battery\_monitoring\_init()}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_a8f794cf4b48a2003145360fb98579c0b} 
+void battery\+\_\+monitoring\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the battery monitoring module. 
+
+Configures the ADC to read the battery voltage and sets up calibration. 
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00044}{44}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8c_a124a3be10511ec33d67d0a74a3ce6f62}\index{battery\_monitoring.c@{battery\_monitoring.c}!battery\_monitoring\_run@{battery\_monitoring\_run}}
+\index{battery\_monitoring\_run@{battery\_monitoring\_run}!battery\_monitoring.c@{battery\_monitoring.c}}
+\doxysubsubsection{\texorpdfstring{battery\_monitoring\_run()}{battery\_monitoring\_run()}}
+{\footnotesize\ttfamily \label{battery__monitoring_8c_a124a3be10511ec33d67d0a74a3ce6f62} 
+void battery\+\_\+monitoring\+\_\+run (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Run the battery monitoring task. 
+
+Reads the battery voltage, updates the debounce buffer, calculates the SOC, and logs the battery status. 
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00148}{148}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+

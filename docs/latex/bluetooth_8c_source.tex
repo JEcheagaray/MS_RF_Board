@@ -1,0 +1,114 @@
+\doxysection{bluetooth.\+c}
+\hypertarget{bluetooth_8c_source}{}\label{bluetooth_8c_source}\index{MS\_RF\_Board/src/Bluetooth/bluetooth.c@{MS\_RF\_Board/src/Bluetooth/bluetooth.c}}
+\mbox{\hyperlink{bluetooth_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}esp\_bt.h"{}}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}esp\_bt\_main.h"{}}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}esp\_bt\_device.h"{}}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}esp\_bt\_gap.h"{}}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}esp\_spp\_api.h"{}}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00018}\mbox{\hyperlink{bluetooth_8c_afc3d101f633a076cc1ca84b85b6224b2}{00018}}\ \textcolor{preprocessor}{\#define\ TAG\ "{}BluetoothSPP"{}}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00020}00020\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *device\_name\ =\ \textcolor{stringliteral}{"{}MS\_RF\_Board"{}};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00030}00030\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ spp\_event\_handler(esp\_spp\_cb\_event\_t\ event,\ esp\_spp\_cb\_param\_t\ *param)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{switch}\ (event)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_SPP\_INIT\_EVT:}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}ESP\ SPP\ initialized."{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ esp\_bt\_gap\_set\_device\_name(device\_name);\ \ \textcolor{comment}{//\ Use\ updated\ API}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ esp\_spp\_start\_srv(ESP\_SPP\_SEC\_AUTHENTICATE,\ ESP\_SPP\_ROLE\_SLAVE,\ 0,\ \textcolor{stringliteral}{"{}SPP\_SERVER"{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_SPP\_START\_EVT:}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}SPP\ server\ started."{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_SPP\_DATA\_IND\_EVT:}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Data\ received:\ \%.*s"{}},\ param-\/>data\_ind.len,\ (\textcolor{keywordtype}{char}\ *)param-\/>data\_ind.data);}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ received\ data}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_SPP\_WRITE\_EVT:}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Data\ sent\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Unhandled\ SPP\ event:\ \%d"{}},\ event);}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00062}\mbox{\hyperlink{bluetooth_8c_ac30299a7f0a1b9afb607e3754e256923}{00062}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bluetooth_8c_ac30299a7f0a1b9afb607e3754e256923}{bluetooth\_init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00063}00063\ \ \ \ \ esp\_err\_t\ ret;}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00065}00065\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Initializing\ Bluetooth..."{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00067}00067\ \ \ \ \ \textcolor{comment}{//\ Release\ BLE\ memory\ (if\ enabled)}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00068}00068\ \ \ \ \ ret\ =\ esp\_bt\_controller\_mem\_release(ESP\_BT\_MODE\_BLE);}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ release\ BLE\ memory:\ \%s"{}},\ esp\_err\_to\_name(ret));}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00071}00071\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00073}00073\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Bluetooth\ controller}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00074}00074\ \ \ \ \ esp\_bt\_controller\_config\_t\ bt\_cfg\ =\ BT\_CONTROLLER\_INIT\_CONFIG\_DEFAULT();}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00075}00075\ \ \ \ \ ret\ =\ esp\_bt\_controller\_init(\&bt\_cfg);}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ initialize\ BT\ controller:\ \%s"{}},\ esp\_err\_to\_name(ret));}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00081}00081\ \ \ \ \ ret\ =\ esp\_bt\_controller\_enable(ESP\_BT\_MODE\_CLASSIC\_BT);}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ enable\ BT\ controller:\ \%s"{}},\ esp\_err\_to\_name(ret));}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Bluedroid\ stack}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00088}00088\ \ \ \ \ ret\ =\ esp\_bluedroid\_init();}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ initialize\ Bluedroid\ stack:\ \%s"{}},\ esp\_err\_to\_name(ret));}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00094}00094\ \ \ \ \ ret\ =\ esp\_bluedroid\_enable();}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00095}00095\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ enable\ Bluedroid\ stack:\ \%s"{}},\ esp\_err\_to\_name(ret));}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00098}00098\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00100}00100\ \ \ \ \ \textcolor{comment}{//\ Register\ SPP\ callback}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00101}00101\ \ \ \ \ ret\ =\ esp\_spp\_register\_callback(spp\_event\_handler);}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ register\ SPP\ callback:\ \%s"{}},\ esp\_err\_to\_name(ret));}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00107}00107\ \ \ \ \ \textcolor{comment}{//\ Initialize\ SPP\ with\ configuration}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00108}00108\ \ \ \ \ esp\_spp\_cfg\_t\ spp\_config\ =\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ .mode\ =\ ESP\_SPP\_MODE\_CB,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Callback\ mode}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ .enable\_l2cap\_ertm\ =\ \textcolor{keyword}{false},\ \ \ \ \ \ \textcolor{comment}{//\ Disable\ L2CAP\ enhanced\ retransmission\ mode}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ .tx\_buffer\_size\ =\ 0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Default\ buffer\ size}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00112}00112\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00113}00113\ \ \ \ \ ret\ =\ esp\_spp\_enhanced\_init(\&spp\_config);\ \ \textcolor{comment}{//\ Use\ the\ updated\ API}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ initialize\ SPP:\ \%s"{}},\ esp\_err\_to\_name(ret));}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00119}00119\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Bluetooth\ initialized\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00120}00120\ \}}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00127}\mbox{\hyperlink{bluetooth_8c_a0118a0d1dde5d1c8ddff5d078c564597}{00127}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bluetooth_8c_a0118a0d1dde5d1c8ddff5d078c564597}{bluetooth\_deinit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00128}00128\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Deinitializing\ Bluetooth..."{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00129}00129\ \ \ \ \ esp\_bluedroid\_disable();}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00130}00130\ \ \ \ \ esp\_bluedroid\_deinit();}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00131}00131\ \ \ \ \ esp\_bt\_controller\_disable();}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00132}00132\ \ \ \ \ esp\_bt\_controller\_deinit();}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00133}00133\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Bluetooth\ deinitialized."{}});}
+\DoxyCodeLine{\Hypertarget{bluetooth_8c_source_l00134}00134\ \}}
+
+\end{DoxyCode}

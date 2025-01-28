@@ -1,0 +1,54 @@
+\doxysection{rtos\+\_\+watchdog.\+c}
+\hypertarget{rtos__watchdog_8c_source}{}\label{rtos__watchdog_8c_source}\index{MS\_RF\_Board/src/RTOS/rtos\_watchdog.c@{MS\_RF\_Board/src/RTOS/rtos\_watchdog.c}}
+\mbox{\hyperlink{rtos__watchdog_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{rtos__watchdog_8h}{rtos\_watchdog.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}esp\_task\_wdt.h"{}}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00024}\mbox{\hyperlink{rtos__watchdog_8c_a0ccf663e6e19439e20decae74816f57b}{00024}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos__watchdog_8c_a0ccf663e6e19439e20decae74816f57b}{rtos\_watchdog\_init}}(\textcolor{keywordtype}{int}\ timeout\_s)\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00025}00025\ \ \ \ \ esp\_task\_wdt\_config\_t\ wdt\_config\ =\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ .timeout\_ms\ =\ timeout\_s\ *\ 1000,\ \textcolor{comment}{//\ Convert\ seconds\ to\ milliseconds}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ .trigger\_panic\ =\ \textcolor{keyword}{true},\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enable\ panic\ handler\ on\ timeout}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ .idle\_core\_mask\ =\ (1\ <<\ 0)\ |\ (1\ <<\ 1)\ \textcolor{comment}{//\ Monitor\ tasks\ on\ both\ cores}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00029}00029\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00031}00031\ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ Task\ Watchdog\ Timer\ with\ the\ specified\ configuration}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00032}00032\ \ \ \ \ esp\_err\_t\ err\ =\ esp\_task\_wdt\_init(\&wdt\_config);}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Watchdog\ initialization\ failed:\ \%d\(\backslash\)n"{}},\ err);}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00035}00035\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00037}00037\ \ \ \ \ \textcolor{comment}{//\ Add\ the\ current\ task\ to\ the\ watchdog\ monitor}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00038}00038\ \ \ \ \ esp\_task\_wdt\_add(NULL);}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00039}00039\ \}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00046}\mbox{\hyperlink{rtos__watchdog_8c_a5bf2492b40f0a51b128c5ef5a0bdec73}{00046}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos__watchdog_8c_a5bf2492b40f0a51b128c5ef5a0bdec73}{rtos\_watchdog\_feed}}()\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00047}00047\ \ \ \ \ esp\_task\_wdt\_reset();}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00048}00048\ \}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00057}\mbox{\hyperlink{rtos__watchdog_8c_a698283f09ffe2f6f19add2d72bec3645}{00057}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos__watchdog_8c_a698283f09ffe2f6f19add2d72bec3645}{rtos\_watchdog\_add\_task}}(TaskHandle\_t\ task\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00058}00058\ \ \ \ \ esp\_err\_t\ err\ =\ esp\_task\_wdt\_add(task\_handle);}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Failed\ to\ add\ task\ to\ watchdog:\ \%d\(\backslash\)n"{}},\ err);}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00071}\mbox{\hyperlink{rtos__watchdog_8c_abd9f016d062030eb9850083e23774805}{00071}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos__watchdog_8c_abd9f016d062030eb9850083e23774805}{rtos\_watchdog\_remove\_task}}(TaskHandle\_t\ task\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00072}00072\ \ \ \ \ esp\_err\_t\ err\ =\ esp\_task\_wdt\_delete(task\_handle);}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Failed\ to\ remove\ task\ from\ watchdog:\ \%d\(\backslash\)n"{}},\ err);}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00083}\mbox{\hyperlink{rtos__watchdog_8c_adc75e54deb5370f64c667706259a0661}{00083}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos__watchdog_8c_adc75e54deb5370f64c667706259a0661}{rtos\_watchdog\_deinit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00084}00084\ \ \ \ \ esp\_task\_wdt\_delete(NULL);\ \textcolor{comment}{//\ Remove\ the\ current\ task\ from\ TWDT}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00085}00085\ \ \ \ \ esp\_task\_wdt\_deinit();\ \ \ \ \ \textcolor{comment}{//\ Deinitialize\ the\ Task\ Watchdog\ Timer}}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00086}00086\ \ \ \ \ ESP\_LOGI(\textcolor{stringliteral}{"{}RTOS\_Watchdog"{}},\ \textcolor{stringliteral}{"{}Watchdog\ deinitialized."{}});}
+\DoxyCodeLine{\Hypertarget{rtos__watchdog_8c_source_l00087}00087\ \}}
+
+\end{DoxyCode}

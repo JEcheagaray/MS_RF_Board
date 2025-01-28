@@ -1,33 +1,18 @@
-/**
- * @file voltage_sensing.c
- * @brief Voltage Sensing Software Component (SWC) for MS_RF_Board.
- *
- * This module monitors the voltage across the load and provides interfaces
- * for both raw and debounced voltage measurements.
- *
- * The debouncing logic is implemented internally and averages recent measurements
- * to provide a stable output.
- *
- * Note: The sensor pin VS_VOUT_2 (GPIO25) was not used because it is connected to ADC2,
- * which may cause conflicts when Wi-Fi is active. Only VS_VOUT_1 (GPIO33) is used
- * for consistent and reliable voltage sensing.
- *
- * @date 2025-01-26
- */
-
 #include "voltage_sensing.h"
 #include "esp_log.h"
 #include "esp_adc/adc_oneshot.h"
-#include "esp_adc_cal.h"
+#include "esp_adc/adc_cali.h"
+#include "esp_adc/adc_cali_scheme.h"
 
 #define TAG "VoltageSensing"
 
 // ADC Configuration
-#define ADC_MAX_VALUE 4095
 #define DEFAULT_VREF 1100  // Default reference voltage in mV
 #define VOLTAGE_DIVIDER_RATIO 10.0  // Divider ratio (based on resistor configuration)
 
-static esp_adc_cal_characteristics_t *adc_chars;  // ADC calibration characteristics
+// ADC handle and calibration
+static adc_oneshot_unit_handle_t adc_handle;
+static adc_cali_handle_t cali_handle;
 
 static float last_measurements[5];  // Buffer for debounced measurements
 static int measurement_index = 0;
@@ -40,11 +25,29 @@ static int measurement_index = 0;
 void voltage_sensing_init() {
     ESP_LOGI(TAG, "Initializing voltage sensing module...");
 
-    adc1_config_width(ADC_WIDTH_BIT_12);  // 12-bit ADC resolution
-    adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11);  // GPIO33 (VS_VOUT_1)
+    // ADC oneshot configuration
+    adc_oneshot_unit_init_cfg_t adc_config = {
+        .unit_id = ADC_UNIT_1
+    };
+    adc_oneshot_new_unit(&adc_config, &adc_handle);
 
-    adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
-    esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
+    // Configure channel
+    adc_oneshot_chan_cfg_t channel_config = {
+        .bitwidth = ADC_BITWIDTH_DEFAULT,
+        .atten = ADC_ATTEN_DB_12  // Updated to recommended value
+    };
+    adc_oneshot_config_channel(adc_handle, ADC_CHANNEL_5, &channel_config);  // GPIO33 (VS_VOUT_1)
+
+    // ADC calibration configuration
+    adc_cali_line_fitting_config_t cali_config = {
+        .unit_id = ADC_UNIT_1,
+        .atten = ADC_ATTEN_DB_12,
+        .bitwidth = ADC_BITWIDTH_DEFAULT
+    };
+    if (adc_cali_create_scheme_line_fitting(&cali_config, &cali_handle) != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to initialize ADC calibration!");
+        cali_handle = NULL;
+    }
 
     ESP_LOGI(TAG, "Voltage sensing module initialized successfully.");
 }
@@ -57,8 +60,18 @@ void voltage_sensing_init() {
  * @return The raw voltage in volts.
  */
 static float read_raw_voltage() {
-    int adc_reading = adc1_get_raw(ADC1_CHANNEL_5);  // GPIO33
-    uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);  // Calibrated voltage in mV
+    int adc_raw = 0;
+    int voltage = 0;  // Use `int` instead of `uint32_t` as required by `adc_cali_raw_to_voltage`
+
+    adc_oneshot_read(adc_handle, ADC_CHANNEL_5, &adc_raw);
+
+    if (cali_handle) {
+        adc_cali_raw_to_voltage(cali_handle, adc_raw, &voltage);  // Calibrated voltage in mV
+    } else {
+        ESP_LOGW(TAG, "ADC calibration not available. Using raw value.");
+        voltage = adc_raw;  // Use raw ADC reading if calibration is unavailable
+    }
+
     return (float)voltage / 1000.0 * VOLTAGE_DIVIDER_RATIO;  // Convert to actual load voltage in volts
 }
 
@@ -107,6 +120,9 @@ void voltage_sensing_run() {
  */
 void voltage_sensing_deinit() {
     ESP_LOGI(TAG, "Deinitializing voltage sensing module...");
-    free(adc_chars);
+    if (cali_handle) {
+        adc_cali_delete_scheme_line_fitting(cali_handle);
+    }
+    adc_oneshot_del_unit(adc_handle);
     ESP_LOGI(TAG, "Voltage sensing module deinitialized.");
 }

@@ -1,0 +1,26 @@
+\doxysection{rtos.\+h}
+\hypertarget{rtos_8h_source}{}\label{rtos_8h_source}\index{MS\_RF\_Board/src/RTOS/rtos.h@{MS\_RF\_Board/src/RTOS/rtos.h}}
+\mbox{\hyperlink{rtos_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00011}00011\ \textcolor{preprocessor}{\#ifndef\ RTOS\_H}}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00012}00012\ \textcolor{preprocessor}{\#define\ RTOS\_H}}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00033}00033\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{rtos_8h_a5957c24010219272b3d5f5d305ed0ffd}{rtos\_create\_task}}(TaskFunction\_t\ task\_function,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *task\_name,\ uint32\_t\ stack\_depth,}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *parameters,\ UBaseType\_t\ priority,\ TaskHandle\_t\ *handle,\ \textcolor{keywordtype}{int}\ core\_id);}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00043}00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos_8h_af9998d7c123edee26fc05c818ee61ecb}{rtos\_delete\_task}}(TaskHandle\_t\ handle);}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00052}00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos_8h_ae2354350f62a9fbf3133d574e476bd4e}{rtos\_delay\_ms}}(uint32\_t\ milliseconds);}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00059}00059\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtos_8h_a17dd102ea1198088b65ad6a876ce4800}{rtos\_log\_task\_stats}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{rtos_8h_source_l00061}00061\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RTOS\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,134 @@
+\doxysection{battery\+\_\+monitoring.\+c}
+\hypertarget{battery__monitoring_8c_source}{}\label{battery__monitoring_8c_source}\index{MS\_RF\_Board/src/BatteryMonitoring/battery\_monitoring.c@{MS\_RF\_Board/src/BatteryMonitoring/battery\_monitoring.c}}
+\mbox{\hyperlink{battery__monitoring_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{battery__monitoring_8h}{battery\_monitoring.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}esp\_adc/adc\_oneshot.h"{}}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}esp\_adc/adc\_cali.h"{}}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}esp\_adc/adc\_cali\_scheme.h"{}}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00017}\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{00017}}\ \textcolor{preprocessor}{\#define\ TAG\ "{}BatteryMonitoring"{}}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00019}00019\ \textcolor{comment}{//\ ADC\ Configuration}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00020}\mbox{\hyperlink{battery__monitoring_8c_a5a03d0b939a8dda552c9fe3319a82485}{00020}}\ \textcolor{preprocessor}{\#define\ ADC\_VREF\ 1100\ \ }\textcolor{comment}{//\ ADC\ reference\ voltage\ in\ mV}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00021}\mbox{\hyperlink{battery__monitoring_8c_acd551a81feacd3e44e123c52c05c359a}{00021}}\ \textcolor{preprocessor}{\#define\ VOLTAGE\_DIVIDER\_RATIO\ 2.0\ \ }\textcolor{comment}{//\ Voltage\ divider\ on\ the\ board}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00023}00023\ \textcolor{comment}{//\ Battery\ Configuration}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00024}\mbox{\hyperlink{battery__monitoring_8c_a392d4d4f4c4962ec6a2bb89d1ddfa4cf}{00024}}\ \textcolor{preprocessor}{\#define\ BATTERY\_FULL\_VOLTAGE\ 12.6\ \ }\textcolor{comment}{//\ 4.2V\ *\ 3\ (full\ charge)}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00025}\mbox{\hyperlink{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d}{00025}}\ \textcolor{preprocessor}{\#define\ BATTERY\_EMPTY\_VOLTAGE\ 9.0\ \ }\textcolor{comment}{//\ 3.0V\ *\ 3\ (minimum\ safe\ voltage)}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00027}00027\ \textcolor{comment}{//\ ADC\ Channel}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00028}\mbox{\hyperlink{battery__monitoring_8c_ab49d7a0f5aa87090664546312512f48e}{00028}}\ \textcolor{preprocessor}{\#define\ BATTERY\_ADC\_CHANNEL\ ADC\_CHANNEL\_9\ \ }\textcolor{comment}{//\ GPIO26\ (D26)\ connected\ to\ VBATT\_M1}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00030}00030\ \textcolor{comment}{//\ Debouncing}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00031}\mbox{\hyperlink{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}{00031}}\ \textcolor{preprocessor}{\#define\ DEBOUNCE\_SAMPLES\ 5}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00032}00032\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ last\_measurements[\mbox{\hyperlink{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}{DEBOUNCE\_SAMPLES}}];}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00033}00033\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ measurement\_index\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00035}00035\ \textcolor{comment}{//\ ADC\ handles}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00036}00036\ \textcolor{keyword}{static}\ adc\_oneshot\_unit\_handle\_t\ adc\_handle;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00037}00037\ \textcolor{keyword}{static}\ adc\_cali\_handle\_t\ cali\_handle;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00044}\mbox{\hyperlink{battery__monitoring_8c_a8f794cf4b48a2003145360fb98579c0b}{00044}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{battery__monitoring_8c_a8f794cf4b48a2003145360fb98579c0b}{battery\_monitoring\_init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00045}00045\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Initializing\ battery\ monitoring\ module..."{}});}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//\ ADC\ oneshot\ configuration}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00048}00048\ \ \ \ \ adc\_oneshot\_unit\_init\_cfg\_t\ adc\_config\ =\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ .unit\_id\ =\ ADC\_UNIT\_1}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00050}00050\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00051}00051\ \ \ \ \ adc\_oneshot\_new\_unit(\&adc\_config,\ \&adc\_handle);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//\ Configure\ channel}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00054}00054\ \ \ \ \ adc\_oneshot\_chan\_cfg\_t\ channel\_config\ =\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ .bitwidth\ =\ ADC\_BITWIDTH\_DEFAULT,}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ .atten\ =\ ADC\_ATTEN\_DB\_12}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00057}00057\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00058}00058\ \ \ \ \ adc\_oneshot\_config\_channel(adc\_handle,\ \mbox{\hyperlink{battery__monitoring_8c_ab49d7a0f5aa87090664546312512f48e}{BATTERY\_ADC\_CHANNEL}},\ \&channel\_config);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//\ ADC\ calibration\ configuration}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00061}00061\ \ \ \ \ adc\_cali\_line\_fitting\_config\_t\ cali\_config\ =\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ .unit\_id\ =\ ADC\_UNIT\_1,}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ .atten\ =\ ADC\_ATTEN\_DB\_12,}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ .bitwidth\ =\ ADC\_BITWIDTH\_DEFAULT}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00065}00065\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (adc\_cali\_create\_scheme\_line\_fitting(\&cali\_config,\ \&cali\_handle)\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ initialize\ ADC\ calibration!"{}});}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ cali\_handle\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00071}00071\ \ \ \ \ \textcolor{comment}{//\ Initialize\ debounce\ buffer}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}{DEBOUNCE\_SAMPLES}};\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ last\_measurements[i]\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00076}00076\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Battery\ monitoring\ module\ initialized\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00086}00086\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ read\_raw\_voltage()\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00087}00087\ \ \ \ \ \textcolor{keywordtype}{int}\ adc\_raw\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00088}00088\ \ \ \ \ \textcolor{keywordtype}{int}\ voltage\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00090}00090\ \ \ \ \ adc\_oneshot\_read(adc\_handle,\ \mbox{\hyperlink{battery__monitoring_8c_ab49d7a0f5aa87090664546312512f48e}{BATTERY\_ADC\_CHANNEL}},\ \&adc\_raw);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{if}\ (cali\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ adc\_cali\_raw\_to\_voltage(cali\_handle,\ adc\_raw,\ \&voltage);\ \ \textcolor{comment}{//\ Calibrated\ voltage\ in\ mV}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00094}00094\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ ESP\_LOGW(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}ADC\ calibration\ not\ available.\ Using\ raw\ value."{}});}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ voltage\ =\ adc\_raw;\ \ \textcolor{comment}{//\ Use\ raw\ ADC\ reading\ if\ calibration\ is\ unavailable}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{return}\ ((\textcolor{keywordtype}{float})voltage\ /\ 1000.0)\ *\ \mbox{\hyperlink{battery__monitoring_8c_acd551a81feacd3e44e123c52c05c359a}{VOLTAGE\_DIVIDER\_RATIO}}\ *\ 3.0;\ \ \textcolor{comment}{//\ Scale\ to\ series\ battery\ voltage}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00100}00100\ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00109}00109\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ get\_debounced\_voltage()\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00110}00110\ \ \ \ \ \textcolor{keywordtype}{float}\ sum\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}{DEBOUNCE\_SAMPLES}};\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ sum\ +=\ last\_measurements[i];}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00113}00113\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{return}\ sum\ /\ \mbox{\hyperlink{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}{DEBOUNCE\_SAMPLES}};}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00115}00115\ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00120}00120\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ update\_debounce\_buffer(\textcolor{keywordtype}{float}\ voltage)\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00121}00121\ \ \ \ \ last\_measurements[measurement\_index]\ =\ voltage;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00122}00122\ \ \ \ \ measurement\_index\ =\ (measurement\_index\ +\ 1)\ \%\ \mbox{\hyperlink{battery__monitoring_8c_a65718882277f7d752ed0e9ebc4616b6e}{DEBOUNCE\_SAMPLES}};}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00123}00123\ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00133}00133\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ calculate\_soc(\textcolor{keywordtype}{float}\ voltage)\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00134}00134\ \ \ \ \ \textcolor{keywordflow}{if}\ (voltage\ >=\ \mbox{\hyperlink{battery__monitoring_8c_a392d4d4f4c4962ec6a2bb89d1ddfa4cf}{BATTERY\_FULL\_VOLTAGE}})\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 100;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00136}00136\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (voltage\ <=\ \mbox{\hyperlink{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d}{BATTERY\_EMPTY\_VOLTAGE}})\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00138}00138\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{int})(((voltage\ -\/\ \mbox{\hyperlink{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d}{BATTERY\_EMPTY\_VOLTAGE}})\ /\ (\mbox{\hyperlink{battery__monitoring_8c_a392d4d4f4c4962ec6a2bb89d1ddfa4cf}{BATTERY\_FULL\_VOLTAGE}}\ -\/\ \mbox{\hyperlink{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d}{BATTERY\_EMPTY\_VOLTAGE}}))\ *\ 100);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00141}00141\ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00148}\mbox{\hyperlink{battery__monitoring_8c_a124a3be10511ec33d67d0a74a3ce6f62}{00148}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{battery__monitoring_8c_a124a3be10511ec33d67d0a74a3ce6f62}{battery\_monitoring\_run}}()\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00149}00149\ \ \ \ \ \textcolor{keywordtype}{float}\ raw\_voltage\ =\ read\_raw\_voltage();}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00150}00150\ \ \ \ \ update\_debounce\_buffer(raw\_voltage);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00152}00152\ \ \ \ \ \textcolor{keywordtype}{float}\ debounced\_voltage\ =\ get\_debounced\_voltage();}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00153}00153\ \ \ \ \ \textcolor{keywordtype}{int}\ soc\ =\ calculate\_soc(debounced\_voltage);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00155}00155\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Battery\ Voltage\ (Raw):\ \%.2fV"{}},\ raw\_voltage);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00156}00156\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Battery\ Voltage\ (Debounced):\ \%.2fV"{}},\ debounced\_voltage);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00157}00157\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}State\ of\ Charge:\ \%d\%\%"{}},\ soc);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00159}00159\ \ \ \ \ \textcolor{keywordflow}{if}\ (debounced\_voltage\ <=\ \mbox{\hyperlink{battery__monitoring_8c_a82d2b9c858f1b86479fcae1e1adede7d}{BATTERY\_EMPTY\_VOLTAGE}})\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ ESP\_LOGW(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Battery\ voltage\ critical!\ Please\ recharge."{}});}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00161}00161\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00162}00162\ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00169}\mbox{\hyperlink{battery__monitoring_8c_aa17e09403491958eece96ac0a9ed50a5}{00169}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{battery__monitoring_8c_aa17e09403491958eece96ac0a9ed50a5}{battery\_monitoring\_deinit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00170}00170\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Deinitializing\ battery\ monitoring\ module..."{}});}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00171}00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (cali\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ adc\_cali\_delete\_scheme\_line\_fitting(cali\_handle);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00173}00173\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00174}00174\ \ \ \ \ adc\_oneshot\_del\_unit(adc\_handle);}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00175}00175\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Battery\ monitoring\ module\ deinitialized."{}});}
+\DoxyCodeLine{\Hypertarget{battery__monitoring_8c_source_l00176}00176\ \}}
+
+\end{DoxyCode}

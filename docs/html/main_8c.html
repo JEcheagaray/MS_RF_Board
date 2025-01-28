@@ -112,19 +112,20 @@ $(function(){initNavTree('main_8c.html',''); initResizable(true); });
 <p>Main application entry point for MS_RF_Board.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;esp_log.h&quot;</code><br />
 <code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
 <code>#include &quot;freertos/task.h&quot;</code><br />
-<code>#include &quot;bluetooth.h&quot;</code><br />
-<code>#include &quot;diagnostics.h&quot;</code><br />
-<code>#include &quot;command_parser.h&quot;</code><br />
-<code>#include &quot;gate_driver_control.h&quot;</code><br />
-<code>#include &quot;voltage_sensing.h&quot;</code><br />
-<code>#include &quot;current_sensing.h&quot;</code><br />
-<code>#include &quot;battery_monitoring.h&quot;</code><br />
-<code>#include &quot;error_handling.h&quot;</code><br />
-<code>#include &quot;nvm.h&quot;</code><br />
-<code>#include &quot;rtos.h&quot;</code><br />
-<code>#include &quot;system_config.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="bluetooth_8h_source.html">bluetooth.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="diagnostics_8h_source.html">diagnostics.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="command__parser_8h_source.html">command_parser.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="voltage__sensing_8h_source.html">voltage_sensing.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="current__sensing_8h_source.html">current_sensing.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="battery__monitoring_8h_source.html">battery_monitoring.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="error__handling_8h_source.html">error_handling.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="nvm_8h_source.html">nvm.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rtos_8h_source.html">rtos.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rtos__watchdog_8h_source.html">rtos_watchdog.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="system__config_8h_source.html">system_config.h</a>&quot;</code><br />
 </div>
 <p><a href="main_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -165,7 +166,6 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main application entry point for MS_RF_Board. </p>
 <p>This file initializes the system, creates FreeRTOS tasks, and assigns them to cores. Tasks are grouped by periodicity and handle specific functionalities.</p>
-<dl class="section author"><dt>Author</dt><dd>Jorge </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2025-01-26 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="main_8c_source.html">main.c</a>.</p>
@@ -188,7 +188,7 @@ Variables</h2></td></tr>
 <p>Main application entry point. </p>
 <p>Initializes the system, sets up non-volatile memory, and creates FreeRTOS tasks for both cores. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00119">119</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00123">123</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -215,7 +215,6 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt; Run diagnostics and logging.</p>
 
 <p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00058">58</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
@@ -244,9 +243,8 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt; Run battery monitoring.</p>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00105">105</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00108">108</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -273,9 +271,8 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt; Run Bluetooth communication.</p>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00043">43</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00042">42</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -302,10 +299,8 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt; Run voltage sensing and regulation.</p>
-<p>&lt; Run current sensing and safety monitoring.</p>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00088">88</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00090">90</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -332,9 +327,8 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt; Run gate driver control.</p>
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00073">73</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00074">74</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -351,7 +345,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00031">31</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00030">30</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -367,7 +361,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00034">34</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00033">33</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -383,7 +377,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00030">30</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00029">29</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -399,7 +393,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00033">33</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00032">32</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -415,7 +409,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00032">32</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00031">31</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>

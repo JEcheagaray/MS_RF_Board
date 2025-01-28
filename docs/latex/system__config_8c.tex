@@ -1,0 +1,88 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+System\+Config/system\+\_\+config.c File Reference}
+\hypertarget{system__config_8c}{}\label{system__config_8c}\index{MS\_RF\_Board/src/SystemConfig/system\_config.c@{MS\_RF\_Board/src/SystemConfig/system\_config.c}}
+
+
+System Configuration Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include "{}system\+\_\+config.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}bluetooth.\+h"{}}\newline
+{\ttfamily \#include "{}diagnostics.\+h"{}}\newline
+{\ttfamily \#include "{}command\+\_\+parser.\+h"{}}\newline
+{\ttfamily \#include "{}voltage\+\_\+sensing.\+h"{}}\newline
+{\ttfamily \#include "{}current\+\_\+sensing.\+h"{}}\newline
+{\ttfamily \#include "{}battery\+\_\+monitoring.\+h"{}}\newline
+{\ttfamily \#include "{}error\+\_\+handling.\+h"{}}\newline
+{\ttfamily \#include "{}nvm.\+h"{}}\newline
+{\ttfamily \#include "{}rtos\+\_\+watchdog.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{system__config_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}}~"{}System\+Config"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{system__config_8c_aa873e5c608ff320063e328fd149f7767}{system\+\_\+config\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the system configuration. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{system__config_8c_a68fc75c9d97b2c26fe493d0b2aed3021}{system\+\_\+config\+\_\+deinit}} ()
+\begin{DoxyCompactList}\small\item\em Deinitialize the system configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+System Configuration Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This module handles the initialization and deinitialization of the entire system. It sets up critical configurations and ensures all components are ready for operation.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{system__config_8c_source}{system\+\_\+config.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{system__config_8c_afc3d101f633a076cc1ca84b85b6224b2}\index{system\_config.c@{system\_config.c}!TAG@{TAG}}
+\index{TAG@{TAG}!system\_config.c@{system\_config.c}}
+\doxysubsubsection{\texorpdfstring{TAG}{TAG}}
+{\footnotesize\ttfamily \label{system__config_8c_afc3d101f633a076cc1ca84b85b6224b2} 
+\#define TAG~"{}System\+Config"{}}
+
+
+
+Definition at line \mbox{\hyperlink{system__config_8c_source_l00024}{24}} of file \mbox{\hyperlink{system__config_8c_source}{system\+\_\+config.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{system__config_8c_a68fc75c9d97b2c26fe493d0b2aed3021}\index{system\_config.c@{system\_config.c}!system\_config\_deinit@{system\_config\_deinit}}
+\index{system\_config\_deinit@{system\_config\_deinit}!system\_config.c@{system\_config.c}}
+\doxysubsubsection{\texorpdfstring{system\_config\_deinit()}{system\_config\_deinit()}}
+{\footnotesize\ttfamily \label{system__config_8c_a68fc75c9d97b2c26fe493d0b2aed3021} 
+void system\+\_\+config\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the system configuration. 
+
+This function deinitializes all system components and cleans up resources. 
+
+Definition at line \mbox{\hyperlink{system__config_8c_source_l00072}{72}} of file \mbox{\hyperlink{system__config_8c_source}{system\+\_\+config.\+c}}.
+
+\Hypertarget{system__config_8c_aa873e5c608ff320063e328fd149f7767}\index{system\_config.c@{system\_config.c}!system\_config\_init@{system\_config\_init}}
+\index{system\_config\_init@{system\_config\_init}!system\_config.c@{system\_config.c}}
+\doxysubsubsection{\texorpdfstring{system\_config\_init()}{system\_config\_init()}}
+{\footnotesize\ttfamily \label{system__config_8c_aa873e5c608ff320063e328fd149f7767} 
+void system\+\_\+config\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the system configuration. 
+
+This function initializes all system components and ensures they are ready for operation. 
+
+Definition at line \mbox{\hyperlink{system__config_8c_source_l00031}{31}} of file \mbox{\hyperlink{system__config_8c_source}{system\+\_\+config.\+c}}.
+

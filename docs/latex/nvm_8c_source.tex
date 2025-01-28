@@ -1,0 +1,79 @@
+\doxysection{nvm.\+c}
+\hypertarget{nvm_8c_source}{}\label{nvm_8c_source}\index{MS\_RF\_Board/src/NvM/nvm.c@{MS\_RF\_Board/src/NvM/nvm.c}}
+\mbox{\hyperlink{nvm_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{nvm_8h}{nvm.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}nvs\_flash.h"{}}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}nvs.h"{}}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00016}\mbox{\hyperlink{nvm_8c_afc3d101f633a076cc1ca84b85b6224b2}{00016}}\ \textcolor{preprocessor}{\#define\ TAG\ "{}NVM"{}}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00017}\mbox{\hyperlink{nvm_8c_a8fcfe5cf03e80f4a629146a8d70d05af}{00017}}\ \textcolor{preprocessor}{\#define\ NVM\_NAMESPACE\ "{}storage"{}}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00024}\mbox{\hyperlink{nvm_8c_aa1fc6f4b529aed84447f08af6f03338f}{00024}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{nvm_8c_aa1fc6f4b529aed84447f08af6f03338f}{nvm\_init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00025}00025\ \ \ \ \ esp\_err\_t\ err\ =\ nvs\_flash\_init();}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ ==\ ESP\_ERR\_NVS\_NO\_FREE\_PAGES\ ||\ err\ ==\ ESP\_ERR\_NVS\_NEW\_VERSION\_FOUND)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ ESP\_LOGW(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Erasing\ and\ reinitializing\ NVS\ due\ to\ errors..."{}});}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ nvs\_flash\_erase();}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ err\ =\ nvs\_flash\_init();}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00030}00030\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ initialize\ NVS:\ \%s"{}},\ esp\_err\_to\_name(err));}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00034}00034\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}NVM\ initialized\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00037}00037\ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00046}\mbox{\hyperlink{nvm_8c_af82a266a0abbb4bb0ea74253d5b45370}{00046}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{nvm_8c_af82a266a0abbb4bb0ea74253d5b45370}{nvm\_save}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00047}00047\ \ \ \ \ nvs\_handle\_t\ handle;}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00048}00048\ \ \ \ \ esp\_err\_t\ err\ =\ nvs\_open(\mbox{\hyperlink{nvm_8c_a8fcfe5cf03e80f4a629146a8d70d05af}{NVM\_NAMESPACE}},\ NVS\_READWRITE,\ \&handle);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ open\ NVS:\ \%s"{}},\ esp\_err\_to\_name(err));}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00054}00054\ \ \ \ \ err\ =\ nvs\_set\_str(handle,\ key,\ value);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ ==\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ err\ =\ nvs\_commit(handle);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ nvs\_close(handle);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ ==\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Key\ '\%s'\ saved\ successfully."{}},\ key);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00062}00062\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00064}00064\ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ save\ key\ '\%s':\ \%s"{}},\ key,\ esp\_err\_to\_name(err));}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00065}00065\ \ \ \ \ nvs\_close(handle);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00067}00067\ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00077}\mbox{\hyperlink{nvm_8c_ad4a07788b28b8c6ed803a433945db3c6}{00077}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{nvm_8c_ad4a07788b28b8c6ed803a433945db3c6}{nvm\_load}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{char}\ *value,\ \textcolor{keywordtype}{size\_t}\ length)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00078}00078\ \ \ \ \ nvs\_handle\_t\ handle;}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00079}00079\ \ \ \ \ esp\_err\_t\ err\ =\ nvs\_open(\mbox{\hyperlink{nvm_8c_a8fcfe5cf03e80f4a629146a8d70d05af}{NVM\_NAMESPACE}},\ NVS\_READONLY,\ \&handle);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ open\ NVS:\ \%s"{}},\ esp\_err\_to\_name(err));}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00083}00083\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00085}00085\ \ \ \ \ err\ =\ nvs\_get\_str(handle,\ key,\ value,\ \&length);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00086}00086\ \ \ \ \ nvs\_close(handle);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ ==\ ESP\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Key\ '\%s'\ loaded\ successfully."{}},\ key);}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00091}00091\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00092}00092\ \ \ \ \ \ \ \ \ ESP\_LOGE(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Failed\ to\ load\ key\ '\%s':\ \%s"{}},\ key,\ esp\_err\_to\_name(err));}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00094}00094\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00102}\mbox{\hyperlink{nvm_8c_af132be405736acd15cd5dafbe5cb51f8}{00102}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{nvm_8c_af132be405736acd15cd5dafbe5cb51f8}{nvm\_deinit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00103}00103\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Deinitializing\ NVM\ module..."{}});}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00104}00104\ \ \ \ \ nvs\_flash\_deinit();}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00105}00105\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}NVM\ module\ deinitialized."{}});}
+\DoxyCodeLine{\Hypertarget{nvm_8c_source_l00106}00106\ \}}
+
+\end{DoxyCode}

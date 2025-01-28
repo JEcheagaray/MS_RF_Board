@@ -1,0 +1,131 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+RTOS/rtos.h File Reference}
+\hypertarget{rtos_8h}{}\label{rtos_8h}\index{MS\_RF\_Board/src/RTOS/rtos.h@{MS\_RF\_Board/src/RTOS/rtos.h}}
+
+
+Header file for RTOS Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{rtos_8h_a5957c24010219272b3d5f5d305ed0ffd}{rtos\+\_\+create\+\_\+task}} (Task\+Function\+\_\+t task\+\_\+function, const char \texorpdfstring{$\ast$}{*}task\+\_\+name, uint32\+\_\+t stack\+\_\+depth, void \texorpdfstring{$\ast$}{*}parameters, UBase\+Type\+\_\+t priority, Task\+Handle\+\_\+t \texorpdfstring{$\ast$}{*}handle, int core\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Create a Free\+RTOS task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtos_8h_af9998d7c123edee26fc05c818ee61ecb}{rtos\+\_\+delete\+\_\+task}} (Task\+Handle\+\_\+t handle)
+\begin{DoxyCompactList}\small\item\em Delete a Free\+RTOS task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtos_8h_ae2354350f62a9fbf3133d574e476bd4e}{rtos\+\_\+delay\+\_\+ms}} (uint32\+\_\+t milliseconds)
+\begin{DoxyCompactList}\small\item\em Delay a task for a specified number of milliseconds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtos_8h_a17dd102ea1198088b65ad6a876ce4800}{rtos\+\_\+log\+\_\+task\+\_\+stats}} (void)
+\begin{DoxyCompactList}\small\item\em Log current Free\+RTOS task statistics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for RTOS Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides declarations for managing Free\+RTOS tasks, including task creation, task deletion, task delays, and logging task statistics.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{rtos_8h_source}{rtos.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{rtos_8h_a5957c24010219272b3d5f5d305ed0ffd}\index{rtos.h@{rtos.h}!rtos\_create\_task@{rtos\_create\_task}}
+\index{rtos\_create\_task@{rtos\_create\_task}!rtos.h@{rtos.h}}
+\doxysubsubsection{\texorpdfstring{rtos\_create\_task()}{rtos\_create\_task()}}
+{\footnotesize\ttfamily \label{rtos_8h_a5957c24010219272b3d5f5d305ed0ffd} 
+bool rtos\+\_\+create\+\_\+task (\begin{DoxyParamCaption}\item[{Task\+Function\+\_\+t}]{task\+\_\+function}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{task\+\_\+name}{, }\item[{uint32\+\_\+t}]{stack\+\_\+depth}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{parameters}{, }\item[{UBase\+Type\+\_\+t}]{priority}{, }\item[{Task\+Handle\+\_\+t \texorpdfstring{$\ast$}{*}}]{handle}{, }\item[{int}]{core\+\_\+id}{}\end{DoxyParamCaption})}
+
+
+
+Create a Free\+RTOS task. 
+
+Wrapper function to create a task with error handling and logging.
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+function} & The function to execute as a task. \\
+\hline
+{\em task\+\_\+name} & Name of the task for debugging purposes. \\
+\hline
+{\em stack\+\_\+depth} & Stack depth for the task. \\
+\hline
+{\em parameters} & Parameters to pass to the task function. \\
+\hline
+{\em priority} & Task priority. \\
+\hline
+{\em handle} & Pointer to store the created task\textquotesingle{}s handle. \\
+\hline
+{\em core\+\_\+id} & Core to pin the task to (-\/1 for no pinning). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the task was created successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{rtos_8c_source_l00032}{32}} of file \mbox{\hyperlink{rtos_8c_source}{rtos.\+c}}.
+
+\Hypertarget{rtos_8h_ae2354350f62a9fbf3133d574e476bd4e}\index{rtos.h@{rtos.h}!rtos\_delay\_ms@{rtos\_delay\_ms}}
+\index{rtos\_delay\_ms@{rtos\_delay\_ms}!rtos.h@{rtos.h}}
+\doxysubsubsection{\texorpdfstring{rtos\_delay\_ms()}{rtos\_delay\_ms()}}
+{\footnotesize\ttfamily \label{rtos_8h_ae2354350f62a9fbf3133d574e476bd4e} 
+void rtos\+\_\+delay\+\_\+ms (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{milliseconds}{}\end{DoxyParamCaption})}
+
+
+
+Delay a task for a specified number of milliseconds. 
+
+Wrapper for Free\+RTOS delay with logging.
+
+
+\begin{DoxyParams}{Parameters}
+{\em milliseconds} & Delay time in milliseconds. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{rtos_8c_source_l00064}{64}} of file \mbox{\hyperlink{rtos_8c_source}{rtos.\+c}}.
+
+\Hypertarget{rtos_8h_af9998d7c123edee26fc05c818ee61ecb}\index{rtos.h@{rtos.h}!rtos\_delete\_task@{rtos\_delete\_task}}
+\index{rtos\_delete\_task@{rtos\_delete\_task}!rtos.h@{rtos.h}}
+\doxysubsubsection{\texorpdfstring{rtos\_delete\_task()}{rtos\_delete\_task()}}
+{\footnotesize\ttfamily \label{rtos_8h_af9998d7c123edee26fc05c818ee61ecb} 
+void rtos\+\_\+delete\+\_\+task (\begin{DoxyParamCaption}\item[{Task\+Handle\+\_\+t}]{handle}{}\end{DoxyParamCaption})}
+
+
+
+Delete a Free\+RTOS task. 
+
+Wrapper function to delete a task and log the operation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em handle} & Handle of the task to delete. Use NULL to delete the calling task. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{rtos_8c_source_l00052}{52}} of file \mbox{\hyperlink{rtos_8c_source}{rtos.\+c}}.
+
+\Hypertarget{rtos_8h_a17dd102ea1198088b65ad6a876ce4800}\index{rtos.h@{rtos.h}!rtos\_log\_task\_stats@{rtos\_log\_task\_stats}}
+\index{rtos\_log\_task\_stats@{rtos\_log\_task\_stats}!rtos.h@{rtos.h}}
+\doxysubsubsection{\texorpdfstring{rtos\_log\_task\_stats()}{rtos\_log\_task\_stats()}}
+{\footnotesize\ttfamily \label{rtos_8h_a17dd102ea1198088b65ad6a876ce4800} 
+void rtos\+\_\+log\+\_\+task\+\_\+stats (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Log current Free\+RTOS task statistics. 
+
+Logs information about all currently running tasks. 
+
+Definition at line \mbox{\hyperlink{rtos_8c_source_l00075}{75}} of file \mbox{\hyperlink{rtos_8c_source}{rtos.\+c}}.
+

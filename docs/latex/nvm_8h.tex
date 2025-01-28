@@ -1,0 +1,115 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Nv\+M/nvm.h File Reference}
+\hypertarget{nvm_8h}{}\label{nvm_8h}\index{MS\_RF\_Board/src/NvM/nvm.h@{MS\_RF\_Board/src/NvM/nvm.h}}
+
+
+Header file for Non-\/\+Volatile Memory (NVM) Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{nvm_8h_a51aaf1145987b5a8086f5ce55e4ca894}{nvm\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the NVM module. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{nvm_8h_af82a266a0abbb4bb0ea74253d5b45370}{nvm\+\_\+save}} (const char \texorpdfstring{$\ast$}{*}key, const char \texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Save a key-\/value pair to NVM. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{nvm_8h_ad4a07788b28b8c6ed803a433945db3c6}{nvm\+\_\+load}} (const char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}value, size\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Load a value from NVM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{nvm_8h_a0be0552e3e9fc289b29b3d65832c96ed}{nvm\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize the NVM module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for Non-\/\+Volatile Memory (NVM) Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides declarations for storing and retrieving persistent data such as user configurations, frequency programs, and settings.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{nvm_8h_source}{nvm.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{nvm_8h_a0be0552e3e9fc289b29b3d65832c96ed}\index{nvm.h@{nvm.h}!nvm\_deinit@{nvm\_deinit}}
+\index{nvm\_deinit@{nvm\_deinit}!nvm.h@{nvm.h}}
+\doxysubsubsection{\texorpdfstring{nvm\_deinit()}{nvm\_deinit()}}
+{\footnotesize\ttfamily \label{nvm_8h_a0be0552e3e9fc289b29b3d65832c96ed} 
+void nvm\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the NVM module. 
+
+Cleans up resources used by the NVM module. 
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00102}{102}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+\Hypertarget{nvm_8h_a51aaf1145987b5a8086f5ce55e4ca894}\index{nvm.h@{nvm.h}!nvm\_init@{nvm\_init}}
+\index{nvm\_init@{nvm\_init}!nvm.h@{nvm.h}}
+\doxysubsubsection{\texorpdfstring{nvm\_init()}{nvm\_init()}}
+{\footnotesize\ttfamily \label{nvm_8h_a51aaf1145987b5a8086f5ce55e4ca894} 
+void nvm\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the NVM module. 
+
+Prepares the non-\/volatile storage for reading and writing data. 
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00024}{24}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+\Hypertarget{nvm_8h_ad4a07788b28b8c6ed803a433945db3c6}\index{nvm.h@{nvm.h}!nvm\_load@{nvm\_load}}
+\index{nvm\_load@{nvm\_load}!nvm.h@{nvm.h}}
+\doxysubsubsection{\texorpdfstring{nvm\_load()}{nvm\_load()}}
+{\footnotesize\ttfamily \label{nvm_8h_ad4a07788b28b8c6ed803a433945db3c6} 
+bool nvm\+\_\+load (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+
+
+Load a value from NVM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key associated with the value. \\
+\hline
+{\em value} & Buffer to store the retrieved value. \\
+\hline
+{\em length} & Length of the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the operation is successful, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00077}{77}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+\Hypertarget{nvm_8h_af82a266a0abbb4bb0ea74253d5b45370}\index{nvm.h@{nvm.h}!nvm\_save@{nvm\_save}}
+\index{nvm\_save@{nvm\_save}!nvm.h@{nvm.h}}
+\doxysubsubsection{\texorpdfstring{nvm\_save()}{nvm\_save()}}
+{\footnotesize\ttfamily \label{nvm_8h_af82a266a0abbb4bb0ea74253d5b45370} 
+bool nvm\+\_\+save (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Save a key-\/value pair to NVM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key under which the value is stored. \\
+\hline
+{\em value} & The string value to store. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the operation is successful, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00046}{46}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+

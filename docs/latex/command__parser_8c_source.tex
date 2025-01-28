@@ -1,0 +1,47 @@
+\doxysection{command\+\_\+parser.\+c}
+\hypertarget{command__parser_8c_source}{}\label{command__parser_8c_source}\index{MS\_RF\_Board/src/CommandParser/command\_parser.c@{MS\_RF\_Board/src/CommandParser/command\_parser.c}}
+\mbox{\hyperlink{command__parser_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{command__parser_8h}{command\_parser.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00017}\mbox{\hyperlink{command__parser_8c_afc3d101f633a076cc1ca84b85b6224b2}{00017}}\ \textcolor{preprocessor}{\#define\ TAG\ "{}CommandParser"{}}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00024}\mbox{\hyperlink{command__parser_8c_a33490f559d4ac57ddd53f252bb185e12}{00024}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{command__parser_8c_a33490f559d4ac57ddd53f252bb185e12}{command\_parser\_init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00025}00025\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Initializing\ command\ parser..."{}});}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//\ Add\ any\ required\ initialization\ here}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00027}00027\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Command\ parser\ initialized\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00036}\mbox{\hyperlink{command__parser_8c_a1450bd528877461040385ffe8e59b7f1}{00036}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{command__parser_8c_a1450bd528877461040385ffe8e59b7f1}{command\_parser\_parse}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *command)\ \{}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (command\ ==\ NULL\ ||\ strlen(command)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ ESP\_LOGW(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Received\ an\ empty\ or\ null\ command."{}});}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00042}00042\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Parsing\ command:\ \%s"{}},\ command);}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ Example:\ Validate\ command\ format\ (e.g.,\ JSON,\ specific\ patterns)}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (strncmp(command,\ \textcolor{stringliteral}{"{}SET\_FREQ"{}},\ 8)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Command\ validated:\ SET\_FREQ"{}});}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00048}00048\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strncmp(command,\ \textcolor{stringliteral}{"{}GET\_STATUS"{}},\ 10)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Command\ validated:\ GET\_STATUS"{}});}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00053}00053\ \ \ \ \ ESP\_LOGW(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Unknown\ command:\ \%s"{}},\ command);}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00062}\mbox{\hyperlink{command__parser_8c_a5002c730fa08fbd29470fd7c250f338b}{00062}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{command__parser_8c_a5002c730fa08fbd29470fd7c250f338b}{command\_parser\_deinit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00063}00063\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Deinitializing\ command\ parser..."{}});}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00064}00064\ \ \ \ \ \textcolor{comment}{//\ Add\ any\ required\ cleanup\ here}}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00065}00065\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Command\ parser\ deinitialized."{}});}
+\DoxyCodeLine{\Hypertarget{command__parser_8c_source_l00066}00066\ \}}
+
+\end{DoxyCode}

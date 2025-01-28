@@ -1,0 +1,147 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Nv\+M/nvm.c File Reference}
+\hypertarget{nvm_8c}{}\label{nvm_8c}\index{MS\_RF\_Board/src/NvM/nvm.c@{MS\_RF\_Board/src/NvM/nvm.c}}
+
+
+Non-\/\+Volatile Memory (NVM) Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include "{}nvm.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}nvs\+\_\+flash.\+h"{}}\newline
+{\ttfamily \#include "{}nvs.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{nvm_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}}~"{}NVM"{}
+\item 
+\#define \mbox{\hyperlink{nvm_8c_a8fcfe5cf03e80f4a629146a8d70d05af}{NVM\+\_\+\+NAMESPACE}}~"{}storage"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{nvm_8c_aa1fc6f4b529aed84447f08af6f03338f}{nvm\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the NVM module. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{nvm_8c_af82a266a0abbb4bb0ea74253d5b45370}{nvm\+\_\+save}} (const char \texorpdfstring{$\ast$}{*}key, const char \texorpdfstring{$\ast$}{*}value)
+\begin{DoxyCompactList}\small\item\em Save a key-\/value pair to NVM. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{nvm_8c_ad4a07788b28b8c6ed803a433945db3c6}{nvm\+\_\+load}} (const char \texorpdfstring{$\ast$}{*}key, char \texorpdfstring{$\ast$}{*}value, size\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Load a value from NVM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{nvm_8c_af132be405736acd15cd5dafbe5cb51f8}{nvm\+\_\+deinit}} ()
+\begin{DoxyCompactList}\small\item\em Deinitialize the NVM module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Non-\/\+Volatile Memory (NVM) Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This module provides functionality to store and retrieve persistent data such as user configurations, frequency programs, and settings.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{nvm_8c_a8fcfe5cf03e80f4a629146a8d70d05af}\index{nvm.c@{nvm.c}!NVM\_NAMESPACE@{NVM\_NAMESPACE}}
+\index{NVM\_NAMESPACE@{NVM\_NAMESPACE}!nvm.c@{nvm.c}}
+\doxysubsubsection{\texorpdfstring{NVM\_NAMESPACE}{NVM\_NAMESPACE}}
+{\footnotesize\ttfamily \label{nvm_8c_a8fcfe5cf03e80f4a629146a8d70d05af} 
+\#define NVM\+\_\+\+NAMESPACE~"{}storage"{}}
+
+
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00017}{17}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+\Hypertarget{nvm_8c_afc3d101f633a076cc1ca84b85b6224b2}\index{nvm.c@{nvm.c}!TAG@{TAG}}
+\index{TAG@{TAG}!nvm.c@{nvm.c}}
+\doxysubsubsection{\texorpdfstring{TAG}{TAG}}
+{\footnotesize\ttfamily \label{nvm_8c_afc3d101f633a076cc1ca84b85b6224b2} 
+\#define TAG~"{}NVM"{}}
+
+
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00016}{16}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{nvm_8c_af132be405736acd15cd5dafbe5cb51f8}\index{nvm.c@{nvm.c}!nvm\_deinit@{nvm\_deinit}}
+\index{nvm\_deinit@{nvm\_deinit}!nvm.c@{nvm.c}}
+\doxysubsubsection{\texorpdfstring{nvm\_deinit()}{nvm\_deinit()}}
+{\footnotesize\ttfamily \label{nvm_8c_af132be405736acd15cd5dafbe5cb51f8} 
+void nvm\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the NVM module. 
+
+Cleans up resources used by the NVM module. 
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00102}{102}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+\Hypertarget{nvm_8c_aa1fc6f4b529aed84447f08af6f03338f}\index{nvm.c@{nvm.c}!nvm\_init@{nvm\_init}}
+\index{nvm\_init@{nvm\_init}!nvm.c@{nvm.c}}
+\doxysubsubsection{\texorpdfstring{nvm\_init()}{nvm\_init()}}
+{\footnotesize\ttfamily \label{nvm_8c_aa1fc6f4b529aed84447f08af6f03338f} 
+void nvm\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the NVM module. 
+
+Prepares the non-\/volatile storage for reading and writing data. 
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00024}{24}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+\Hypertarget{nvm_8c_ad4a07788b28b8c6ed803a433945db3c6}\index{nvm.c@{nvm.c}!nvm\_load@{nvm\_load}}
+\index{nvm\_load@{nvm\_load}!nvm.c@{nvm.c}}
+\doxysubsubsection{\texorpdfstring{nvm\_load()}{nvm\_load()}}
+{\footnotesize\ttfamily \label{nvm_8c_ad4a07788b28b8c6ed803a433945db3c6} 
+bool nvm\+\_\+load (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+
+
+Load a value from NVM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key associated with the value. \\
+\hline
+{\em value} & Buffer to store the retrieved value. \\
+\hline
+{\em length} & Length of the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the operation is successful, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00077}{77}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+
+\Hypertarget{nvm_8c_af82a266a0abbb4bb0ea74253d5b45370}\index{nvm.c@{nvm.c}!nvm\_save@{nvm\_save}}
+\index{nvm\_save@{nvm\_save}!nvm.c@{nvm.c}}
+\doxysubsubsection{\texorpdfstring{nvm\_save()}{nvm\_save()}}
+{\footnotesize\ttfamily \label{nvm_8c_af82a266a0abbb4bb0ea74253d5b45370} 
+bool nvm\+\_\+save (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Save a key-\/value pair to NVM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key under which the value is stored. \\
+\hline
+{\em value} & The string value to store. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the operation is successful, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{nvm_8c_source_l00046}{46}} of file \mbox{\hyperlink{nvm_8c_source}{nvm.\+c}}.
+

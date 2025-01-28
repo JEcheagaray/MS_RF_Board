@@ -1,0 +1,84 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Command\+Parser/command\+\_\+parser.h File Reference}
+\hypertarget{command__parser_8h}{}\label{command__parser_8h}\index{MS\_RF\_Board/src/CommandParser/command\_parser.h@{MS\_RF\_Board/src/CommandParser/command\_parser.h}}
+
+
+Header file for Command Parser Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{command__parser_8h_ad570b8646ad425172488833010d05a01}{command\+\_\+parser\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the command parser module. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{command__parser_8h_a1450bd528877461040385ffe8e59b7f1}{command\+\_\+parser\+\_\+parse}} (const char \texorpdfstring{$\ast$}{*}command)
+\begin{DoxyCompactList}\small\item\em Parse and validate a received command. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{command__parser_8h_ac1cf8961e4cc7b3d0862b2397073a44d}{command\+\_\+parser\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize the command parser module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for Command Parser Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides the declarations for parsing and validating commands received from the Bluetooth interface.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{command__parser_8h_source}{command\+\_\+parser.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{command__parser_8h_ac1cf8961e4cc7b3d0862b2397073a44d}\index{command\_parser.h@{command\_parser.h}!command\_parser\_deinit@{command\_parser\_deinit}}
+\index{command\_parser\_deinit@{command\_parser\_deinit}!command\_parser.h@{command\_parser.h}}
+\doxysubsubsection{\texorpdfstring{command\_parser\_deinit()}{command\_parser\_deinit()}}
+{\footnotesize\ttfamily \label{command__parser_8h_ac1cf8961e4cc7b3d0862b2397073a44d} 
+void command\+\_\+parser\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the command parser module. 
+
+Cleans up resources used by the command parser. 
+
+Definition at line \mbox{\hyperlink{command__parser_8c_source_l00062}{62}} of file \mbox{\hyperlink{command__parser_8c_source}{command\+\_\+parser.\+c}}.
+
+\Hypertarget{command__parser_8h_ad570b8646ad425172488833010d05a01}\index{command\_parser.h@{command\_parser.h}!command\_parser\_init@{command\_parser\_init}}
+\index{command\_parser\_init@{command\_parser\_init}!command\_parser.h@{command\_parser.h}}
+\doxysubsubsection{\texorpdfstring{command\_parser\_init()}{command\_parser\_init()}}
+{\footnotesize\ttfamily \label{command__parser_8h_ad570b8646ad425172488833010d05a01} 
+void command\+\_\+parser\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the command parser module. 
+
+Prepares the command parser for processing incoming commands. 
+
+Definition at line \mbox{\hyperlink{command__parser_8c_source_l00024}{24}} of file \mbox{\hyperlink{command__parser_8c_source}{command\+\_\+parser.\+c}}.
+
+\Hypertarget{command__parser_8h_a1450bd528877461040385ffe8e59b7f1}\index{command\_parser.h@{command\_parser.h}!command\_parser\_parse@{command\_parser\_parse}}
+\index{command\_parser\_parse@{command\_parser\_parse}!command\_parser.h@{command\_parser.h}}
+\doxysubsubsection{\texorpdfstring{command\_parser\_parse()}{command\_parser\_parse()}}
+{\footnotesize\ttfamily \label{command__parser_8h_a1450bd528877461040385ffe8e59b7f1} 
+bool command\+\_\+parser\+\_\+parse (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Parse and validate a received command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from Bluetooth. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the command is valid, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{command__parser_8c_source_l00036}{36}} of file \mbox{\hyperlink{command__parser_8c_source}{command\+\_\+parser.\+c}}.
+

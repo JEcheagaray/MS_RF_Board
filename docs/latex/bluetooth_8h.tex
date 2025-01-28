@@ -1,0 +1,80 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Bluetooth/bluetooth.h File Reference}
+\hypertarget{bluetooth_8h}{}\label{bluetooth_8h}\index{MS\_RF\_Board/src/Bluetooth/bluetooth.h@{MS\_RF\_Board/src/Bluetooth/bluetooth.h}}
+
+
+Header file for Bluetooth Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bluetooth_8h_aaa60810e0857e9e1e5b2cba80b8db3ff}{bluetooth\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the Bluetooth module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bluetooth_8h_ad7d206da143f600b6a8b99d66434403e}{bluetooth\+\_\+run}} (void)
+\begin{DoxyCompactList}\small\item\em Run Bluetooth communication tasks. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bluetooth_8h_a87f3f7d4b131e7801eecc1acbc5cfe94}{bluetooth\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize the Bluetooth module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for Bluetooth Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides the declarations for the Bluetooth Low Energy (BLE) communication functionalities of the MS\+\_\+\+RF\+\_\+\+Board.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{bluetooth_8h_source}{bluetooth.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bluetooth_8h_a87f3f7d4b131e7801eecc1acbc5cfe94}\index{bluetooth.h@{bluetooth.h}!bluetooth\_deinit@{bluetooth\_deinit}}
+\index{bluetooth\_deinit@{bluetooth\_deinit}!bluetooth.h@{bluetooth.h}}
+\doxysubsubsection{\texorpdfstring{bluetooth\_deinit()}{bluetooth\_deinit()}}
+{\footnotesize\ttfamily \label{bluetooth_8h_a87f3f7d4b131e7801eecc1acbc5cfe94} 
+void bluetooth\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the Bluetooth module. 
+
+Stops and releases all Bluetooth resources.
+
+Deinitialize the Bluetooth module.
+
+Cleans up and releases resources used by the Bluetooth Classic stack. 
+
+Definition at line \mbox{\hyperlink{bluetooth_8c_source_l00127}{127}} of file \mbox{\hyperlink{bluetooth_8c_source}{bluetooth.\+c}}.
+
+\Hypertarget{bluetooth_8h_aaa60810e0857e9e1e5b2cba80b8db3ff}\index{bluetooth.h@{bluetooth.h}!bluetooth\_init@{bluetooth\_init}}
+\index{bluetooth\_init@{bluetooth\_init}!bluetooth.h@{bluetooth.h}}
+\doxysubsubsection{\texorpdfstring{bluetooth\_init()}{bluetooth\_init()}}
+{\footnotesize\ttfamily \label{bluetooth_8h_aaa60810e0857e9e1e5b2cba80b8db3ff} 
+void bluetooth\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the Bluetooth module. 
+
+Configures and starts the BLE stack for communication.
+
+Initialize the Bluetooth module.
+
+Configures and enables the Bluetooth Classic stack using the SPP profile. 
+
+Definition at line \mbox{\hyperlink{bluetooth_8c_source_l00062}{62}} of file \mbox{\hyperlink{bluetooth_8c_source}{bluetooth.\+c}}.
+
+\Hypertarget{bluetooth_8h_ad7d206da143f600b6a8b99d66434403e}\index{bluetooth.h@{bluetooth.h}!bluetooth\_run@{bluetooth\_run}}
+\index{bluetooth\_run@{bluetooth\_run}!bluetooth.h@{bluetooth.h}}
+\doxysubsubsection{\texorpdfstring{bluetooth\_run()}{bluetooth\_run()}}
+{\footnotesize\ttfamily \label{bluetooth_8h_ad7d206da143f600b6a8b99d66434403e} 
+void bluetooth\+\_\+run (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Run Bluetooth communication tasks. 
+
+Handles periodic Bluetooth operations and message processing. 

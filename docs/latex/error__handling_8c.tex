@@ -1,0 +1,127 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Error\+Handling/error\+\_\+handling.c File Reference}
+\hypertarget{error__handling_8c}{}\label{error__handling_8c}\index{MS\_RF\_Board/src/ErrorHandling/error\_handling.c@{MS\_RF\_Board/src/ErrorHandling/error\_handling.c}}
+
+
+Error Handling Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include "{}error\+\_\+handling.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{error__handling_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}}~"{}Error\+Handling"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{error__handling_8c_a3569cbd3e42bced5c3b8ada85ec2ae48}{error\+\_\+handling\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize the error handling module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{error__handling_8c_ad2c4a9e8c53d4a51657b18e22cf51c3a}{error\+\_\+handling\+\_\+log}} (const char \texorpdfstring{$\ast$}{*}error\+\_\+message)
+\begin{DoxyCompactList}\small\item\em Log an error message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{error__handling_8c_a35a87382ca4cfd366c2874017f15483c}{error\+\_\+handling\+\_\+recover}} (int error\+\_\+code)
+\begin{DoxyCompactList}\small\item\em Perform recovery actions for critical errors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{error__handling_8c_a18b7dd53843601851a0083098b35b70e}{error\+\_\+handling\+\_\+deinit}} ()
+\begin{DoxyCompactList}\small\item\em Deinitialize the error handling module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Error Handling Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This module handles system errors, logging, and recovery mechanisms to ensure stability and prevent system crashes.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{error__handling_8c_source}{error\+\_\+handling.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{error__handling_8c_afc3d101f633a076cc1ca84b85b6224b2}\index{error\_handling.c@{error\_handling.c}!TAG@{TAG}}
+\index{TAG@{TAG}!error\_handling.c@{error\_handling.c}}
+\doxysubsubsection{\texorpdfstring{TAG}{TAG}}
+{\footnotesize\ttfamily \label{error__handling_8c_afc3d101f633a076cc1ca84b85b6224b2} 
+\#define TAG~"{}Error\+Handling"{}}
+
+
+
+Definition at line \mbox{\hyperlink{error__handling_8c_source_l00016}{16}} of file \mbox{\hyperlink{error__handling_8c_source}{error\+\_\+handling.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{error__handling_8c_a18b7dd53843601851a0083098b35b70e}\index{error\_handling.c@{error\_handling.c}!error\_handling\_deinit@{error\_handling\_deinit}}
+\index{error\_handling\_deinit@{error\_handling\_deinit}!error\_handling.c@{error\_handling.c}}
+\doxysubsubsection{\texorpdfstring{error\_handling\_deinit()}{error\_handling\_deinit()}}
+{\footnotesize\ttfamily \label{error__handling_8c_a18b7dd53843601851a0083098b35b70e} 
+void error\+\_\+handling\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the error handling module. 
+
+Cleans up resources used by the error handling module. 
+
+Definition at line \mbox{\hyperlink{error__handling_8c_source_l00071}{71}} of file \mbox{\hyperlink{error__handling_8c_source}{error\+\_\+handling.\+c}}.
+
+\Hypertarget{error__handling_8c_a3569cbd3e42bced5c3b8ada85ec2ae48}\index{error\_handling.c@{error\_handling.c}!error\_handling\_init@{error\_handling\_init}}
+\index{error\_handling\_init@{error\_handling\_init}!error\_handling.c@{error\_handling.c}}
+\doxysubsubsection{\texorpdfstring{error\_handling\_init()}{error\_handling\_init()}}
+{\footnotesize\ttfamily \label{error__handling_8c_a3569cbd3e42bced5c3b8ada85ec2ae48} 
+void error\+\_\+handling\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the error handling module. 
+
+Sets up error logging and recovery mechanisms. 
+
+Definition at line \mbox{\hyperlink{error__handling_8c_source_l00023}{23}} of file \mbox{\hyperlink{error__handling_8c_source}{error\+\_\+handling.\+c}}.
+
+\Hypertarget{error__handling_8c_ad2c4a9e8c53d4a51657b18e22cf51c3a}\index{error\_handling.c@{error\_handling.c}!error\_handling\_log@{error\_handling\_log}}
+\index{error\_handling\_log@{error\_handling\_log}!error\_handling.c@{error\_handling.c}}
+\doxysubsubsection{\texorpdfstring{error\_handling\_log()}{error\_handling\_log()}}
+{\footnotesize\ttfamily \label{error__handling_8c_ad2c4a9e8c53d4a51657b18e22cf51c3a} 
+void error\+\_\+handling\+\_\+log (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{error\+\_\+message}{}\end{DoxyParamCaption})}
+
+
+
+Log an error message. 
+
+Logs the provided error message with the ESP logging system.
+
+
+\begin{DoxyParams}{Parameters}
+{\em error\+\_\+message} & The error message to log. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{error__handling_8c_source_l00038}{38}} of file \mbox{\hyperlink{error__handling_8c_source}{error\+\_\+handling.\+c}}.
+
+\Hypertarget{error__handling_8c_a35a87382ca4cfd366c2874017f15483c}\index{error\_handling.c@{error\_handling.c}!error\_handling\_recover@{error\_handling\_recover}}
+\index{error\_handling\_recover@{error\_handling\_recover}!error\_handling.c@{error\_handling.c}}
+\doxysubsubsection{\texorpdfstring{error\_handling\_recover()}{error\_handling\_recover()}}
+{\footnotesize\ttfamily \label{error__handling_8c_a35a87382ca4cfd366c2874017f15483c} 
+void error\+\_\+handling\+\_\+recover (\begin{DoxyParamCaption}\item[{int}]{error\+\_\+code}{}\end{DoxyParamCaption})}
+
+
+
+Perform recovery actions for critical errors. 
+
+Attempts to recover the system or gracefully shut down in the event of a critical error.
+
+
+\begin{DoxyParams}{Parameters}
+{\em error\+\_\+code} & The error code associated with the critical error. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{error__handling_8c_source_l00054}{54}} of file \mbox{\hyperlink{error__handling_8c_source}{error\+\_\+handling.\+c}}.
+

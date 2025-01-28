@@ -1,0 +1,87 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Bluetooth/bluetooth.c File Reference}
+\hypertarget{bluetooth_8c}{}\label{bluetooth_8c}\index{MS\_RF\_Board/src/Bluetooth/bluetooth.c@{MS\_RF\_Board/src/Bluetooth/bluetooth.c}}
+
+
+Bluetooth Classic implementation for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include "{}esp\+\_\+bt.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt\+\_\+main.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt\+\_\+device.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt\+\_\+gap.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+spp\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{bluetooth_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}}~"{}Bluetooth\+SPP"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bluetooth_8c_ac30299a7f0a1b9afb607e3754e256923}{bluetooth\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize Bluetooth Classic with SPP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bluetooth_8c_a0118a0d1dde5d1c8ddff5d078c564597}{bluetooth\+\_\+deinit}} ()
+\begin{DoxyCompactList}\small\item\em Deinitialize Bluetooth Classic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Bluetooth Classic implementation for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This module sets up Bluetooth Classic using the SPP profile for serial communication. The module supports basic initialization, data handling, and deinitialization.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{bluetooth_8c_source}{bluetooth.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{bluetooth_8c_afc3d101f633a076cc1ca84b85b6224b2}\index{bluetooth.c@{bluetooth.c}!TAG@{TAG}}
+\index{TAG@{TAG}!bluetooth.c@{bluetooth.c}}
+\doxysubsubsection{\texorpdfstring{TAG}{TAG}}
+{\footnotesize\ttfamily \label{bluetooth_8c_afc3d101f633a076cc1ca84b85b6224b2} 
+\#define TAG~"{}Bluetooth\+SPP"{}}
+
+
+
+Definition at line \mbox{\hyperlink{bluetooth_8c_source_l00018}{18}} of file \mbox{\hyperlink{bluetooth_8c_source}{bluetooth.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bluetooth_8c_a0118a0d1dde5d1c8ddff5d078c564597}\index{bluetooth.c@{bluetooth.c}!bluetooth\_deinit@{bluetooth\_deinit}}
+\index{bluetooth\_deinit@{bluetooth\_deinit}!bluetooth.c@{bluetooth.c}}
+\doxysubsubsection{\texorpdfstring{bluetooth\_deinit()}{bluetooth\_deinit()}}
+{\footnotesize\ttfamily \label{bluetooth_8c_a0118a0d1dde5d1c8ddff5d078c564597} 
+void bluetooth\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize Bluetooth Classic. 
+
+Deinitialize the Bluetooth module.
+
+Cleans up and releases resources used by the Bluetooth Classic stack. 
+
+Definition at line \mbox{\hyperlink{bluetooth_8c_source_l00127}{127}} of file \mbox{\hyperlink{bluetooth_8c_source}{bluetooth.\+c}}.
+
+\Hypertarget{bluetooth_8c_ac30299a7f0a1b9afb607e3754e256923}\index{bluetooth.c@{bluetooth.c}!bluetooth\_init@{bluetooth\_init}}
+\index{bluetooth\_init@{bluetooth\_init}!bluetooth.c@{bluetooth.c}}
+\doxysubsubsection{\texorpdfstring{bluetooth\_init()}{bluetooth\_init()}}
+{\footnotesize\ttfamily \label{bluetooth_8c_ac30299a7f0a1b9afb607e3754e256923} 
+void bluetooth\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize Bluetooth Classic with SPP. 
+
+Initialize the Bluetooth module.
+
+Configures and enables the Bluetooth Classic stack using the SPP profile. 
+
+Definition at line \mbox{\hyperlink{bluetooth_8c_source_l00062}{62}} of file \mbox{\hyperlink{bluetooth_8c_source}{bluetooth.\+c}}.
+

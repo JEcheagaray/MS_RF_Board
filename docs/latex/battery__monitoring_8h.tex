@@ -1,0 +1,79 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Battery\+Monitoring/battery\+\_\+monitoring.h File Reference}
+\hypertarget{battery__monitoring_8h}{}\label{battery__monitoring_8h}\index{MS\_RF\_Board/src/BatteryMonitoring/battery\_monitoring.h@{MS\_RF\_Board/src/BatteryMonitoring/battery\_monitoring.h}}
+
+
+Header file for Battery Monitoring Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{battery__monitoring_8h_a8a39afb38b6c29ffe76a2427170a2807}{battery\+\_\+monitoring\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the battery monitoring module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{battery__monitoring_8h_a258ce083ada918aa72109886afe09543}{battery\+\_\+monitoring\+\_\+run}} (void)
+\begin{DoxyCompactList}\small\item\em Run the battery monitoring task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{battery__monitoring_8h_abd831ba68c52f4dfc597b0cee9d2e1ba}{battery\+\_\+monitoring\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize the battery monitoring module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for Battery Monitoring Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides declarations for monitoring the battery voltage and calculating the state of charge (SOC) for the MS\+\_\+\+RF\+\_\+\+Board using three 18650 batteries in series.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{battery__monitoring_8h_source}{battery\+\_\+monitoring.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{battery__monitoring_8h_abd831ba68c52f4dfc597b0cee9d2e1ba}\index{battery\_monitoring.h@{battery\_monitoring.h}!battery\_monitoring\_deinit@{battery\_monitoring\_deinit}}
+\index{battery\_monitoring\_deinit@{battery\_monitoring\_deinit}!battery\_monitoring.h@{battery\_monitoring.h}}
+\doxysubsubsection{\texorpdfstring{battery\_monitoring\_deinit()}{battery\_monitoring\_deinit()}}
+{\footnotesize\ttfamily \label{battery__monitoring_8h_abd831ba68c52f4dfc597b0cee9d2e1ba} 
+void battery\+\_\+monitoring\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the battery monitoring module. 
+
+Cleans up resources used by the battery monitoring module. 
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00169}{169}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8h_a8a39afb38b6c29ffe76a2427170a2807}\index{battery\_monitoring.h@{battery\_monitoring.h}!battery\_monitoring\_init@{battery\_monitoring\_init}}
+\index{battery\_monitoring\_init@{battery\_monitoring\_init}!battery\_monitoring.h@{battery\_monitoring.h}}
+\doxysubsubsection{\texorpdfstring{battery\_monitoring\_init()}{battery\_monitoring\_init()}}
+{\footnotesize\ttfamily \label{battery__monitoring_8h_a8a39afb38b6c29ffe76a2427170a2807} 
+void battery\+\_\+monitoring\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the battery monitoring module. 
+
+Configures the ADC to read the battery voltage.
+
+Configures the ADC to read the battery voltage and sets up calibration. 
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00044}{44}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+
+\Hypertarget{battery__monitoring_8h_a258ce083ada918aa72109886afe09543}\index{battery\_monitoring.h@{battery\_monitoring.h}!battery\_monitoring\_run@{battery\_monitoring\_run}}
+\index{battery\_monitoring\_run@{battery\_monitoring\_run}!battery\_monitoring.h@{battery\_monitoring.h}}
+\doxysubsubsection{\texorpdfstring{battery\_monitoring\_run()}{battery\_monitoring\_run()}}
+{\footnotesize\ttfamily \label{battery__monitoring_8h_a258ce083ada918aa72109886afe09543} 
+void battery\+\_\+monitoring\+\_\+run (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Run the battery monitoring task. 
+
+Reads the battery voltage, calculates the SOC, and logs the battery status.
+
+Reads the battery voltage, updates the debounce buffer, calculates the SOC, and logs the battery status. 
+
+Definition at line \mbox{\hyperlink{battery__monitoring_8c_source_l00148}{148}} of file \mbox{\hyperlink{battery__monitoring_8c_source}{battery\+\_\+monitoring.\+c}}.
+

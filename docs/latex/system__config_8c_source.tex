@@ -1,0 +1,76 @@
+\doxysection{system\+\_\+config.\+c}
+\hypertarget{system__config_8c_source}{}\label{system__config_8c_source}\index{MS\_RF\_Board/src/SystemConfig/system\_config.c@{MS\_RF\_Board/src/SystemConfig/system\_config.c}}
+\mbox{\hyperlink{system__config_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system__config_8h}{system\_config.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bluetooth_8h}{bluetooth.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{diagnostics_8h}{diagnostics.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{command__parser_8h}{command\_parser.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00016}00016\ \textcolor{comment}{//\#include\ "{}gate\_driver\_control.h"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{voltage__sensing_8h}{voltage\_sensing.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{current__sensing_8h}{current\_sensing.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{battery__monitoring_8h}{battery\_monitoring.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{error__handling_8h}{error\_handling.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{nvm_8h}{nvm.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{rtos__watchdog_8h}{rtos\_watchdog.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00024}\mbox{\hyperlink{system__config_8c_afc3d101f633a076cc1ca84b85b6224b2}{00024}}\ \textcolor{preprocessor}{\#define\ TAG\ "{}SystemConfig"{}}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00031}\mbox{\hyperlink{system__config_8c_aa873e5c608ff320063e328fd149f7767}{00031}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{system__config_8c_aa873e5c608ff320063e328fd149f7767}{system\_config\_init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00032}00032\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Initializing\ system\ configuration..."{}});}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Non-\/Volatile\ Memory}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00035}00035\ \ \ \ \ \mbox{\hyperlink{nvm_8c_aa1fc6f4b529aed84447f08af6f03338f}{nvm\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00037}00037\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Error\ Handling}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00038}00038\ \ \ \ \ \mbox{\hyperlink{error__handling_8c_a3569cbd3e42bced5c3b8ada85ec2ae48}{error\_handling\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00040}00040\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Bluetooth}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00041}00041\ \ \ \ \ \mbox{\hyperlink{bluetooth_8c_ac30299a7f0a1b9afb607e3754e256923}{bluetooth\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00043}00043\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Diagnostics}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00044}00044\ \ \ \ \ \mbox{\hyperlink{diagnostics_8c_a25c0811eb599967a01e34d939e5d38e3}{diagnostics\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00046}00046\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Command\ Parser}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00047}00047\ \ \ \ \ \mbox{\hyperlink{command__parser_8c_a33490f559d4ac57ddd53f252bb185e12}{command\_parser\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Gate\ Driver\ Control}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//gate\_driver\_control\_init();}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Voltage\ Sensing}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{voltage__sensing_8c_a5608722b9cc8b2353361878d1a7d2ebc}{voltage\_sensing\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Current\ Sensing}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00056}00056\ \ \ \ \ \mbox{\hyperlink{current__sensing_8c_aa2b5d5131ffb73df0b95b297d19cdd2b}{current\_sensing\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00058}00058\ \ \ \ \ \textcolor{comment}{//\ Initialize\ Battery\ Monitoring}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00059}00059\ \ \ \ \ \mbox{\hyperlink{battery__monitoring_8c_a8f794cf4b48a2003145360fb98579c0b}{battery\_monitoring\_init}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ Initialize\ RTOS\ Watchdog}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{rtos__watchdog_8c_a0ccf663e6e19439e20decae74816f57b}{rtos\_watchdog\_init}}(5);\ \ \textcolor{comment}{//\ Set\ a\ 5-\/second\ timeout\ for\ the\ watchdog}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00064}00064\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}System\ configuration\ initialized\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00065}00065\ \}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00072}\mbox{\hyperlink{system__config_8c_a68fc75c9d97b2c26fe493d0b2aed3021}{00072}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{system__config_8c_a68fc75c9d97b2c26fe493d0b2aed3021}{system\_config\_deinit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00073}00073\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}Deinitializing\ system\ configuration..."{}});}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00075}00075\ \ \ \ \ \textcolor{comment}{//\ Deinitialize\ all\ components}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00076}00076\ \ \ \ \ \mbox{\hyperlink{rtos__watchdog_8c_adc75e54deb5370f64c667706259a0661}{rtos\_watchdog\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00077}00077\ \ \ \ \ \mbox{\hyperlink{battery__monitoring_8c_aa17e09403491958eece96ac0a9ed50a5}{battery\_monitoring\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00078}00078\ \ \ \ \ \mbox{\hyperlink{current__sensing_8c_a86dea9a69f74319728052fa593525a65}{current\_sensing\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00079}00079\ \ \ \ \ \mbox{\hyperlink{voltage__sensing_8c_a5978856c10d1f720a7acf7969d59ba76}{voltage\_sensing\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//gate\_driver\_control\_deinit();}}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00081}00081\ \ \ \ \ \mbox{\hyperlink{command__parser_8c_a5002c730fa08fbd29470fd7c250f338b}{command\_parser\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{diagnostics_8c_a4a53a3856dbfc20175eeda4ff31ca0c2}{diagnostics\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{bluetooth_8c_a0118a0d1dde5d1c8ddff5d078c564597}{bluetooth\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{error__handling_8c_a18b7dd53843601851a0083098b35b70e}{error\_handling\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00085}00085\ \ \ \ \ \mbox{\hyperlink{nvm_8c_af132be405736acd15cd5dafbe5cb51f8}{nvm\_deinit}}();}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00087}00087\ \ \ \ \ ESP\_LOGI(\mbox{\hyperlink{battery__monitoring_8c_afc3d101f633a076cc1ca84b85b6224b2}{TAG}},\ \textcolor{stringliteral}{"{}System\ configuration\ deinitialized\ successfully."{}});}
+\DoxyCodeLine{\Hypertarget{system__config_8c_source_l00088}00088\ \}}
+
+\end{DoxyCode}

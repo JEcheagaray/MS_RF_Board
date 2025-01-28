@@ -1,0 +1,78 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Diagnostics/diagnostics.h File Reference}
+\hypertarget{diagnostics_8h}{}\label{diagnostics_8h}\index{MS\_RF\_Board/src/Diagnostics/diagnostics.h@{MS\_RF\_Board/src/Diagnostics/diagnostics.h}}
+
+
+Header file for Diagnostics Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{diagnostics_8h_a9d006d99823037a9dcd2ea75cb65c718}{diagnostics\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the diagnostics module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{diagnostics_8h_a1ad0b071829a5609b319753343bd1236}{diagnostics\+\_\+run}} (void)
+\begin{DoxyCompactList}\small\item\em Run diagnostics tasks. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{diagnostics_8h_ae5916f55183981a0e79ac2ce6a22dc61}{diagnostics\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize the diagnostics module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for Diagnostics Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides the declarations for diagnostics and logging functionalities to monitor the system\textquotesingle{}s health, performance, and errors.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{diagnostics_8h_source}{diagnostics.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{diagnostics_8h_ae5916f55183981a0e79ac2ce6a22dc61}\index{diagnostics.h@{diagnostics.h}!diagnostics\_deinit@{diagnostics\_deinit}}
+\index{diagnostics\_deinit@{diagnostics\_deinit}!diagnostics.h@{diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{diagnostics\_deinit()}{diagnostics\_deinit()}}
+{\footnotesize\ttfamily \label{diagnostics_8h_ae5916f55183981a0e79ac2ce6a22dc61} 
+void diagnostics\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the diagnostics module. 
+
+Cleans up diagnostics resources and stops monitoring. 
+
+Definition at line \mbox{\hyperlink{diagnostics_8c_source_l00053}{53}} of file \mbox{\hyperlink{diagnostics_8c_source}{diagnostics.\+c}}.
+
+\Hypertarget{diagnostics_8h_a9d006d99823037a9dcd2ea75cb65c718}\index{diagnostics.h@{diagnostics.h}!diagnostics\_init@{diagnostics\_init}}
+\index{diagnostics\_init@{diagnostics\_init}!diagnostics.h@{diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{diagnostics\_init()}{diagnostics\_init()}}
+{\footnotesize\ttfamily \label{diagnostics_8h_a9d006d99823037a9dcd2ea75cb65c718} 
+void diagnostics\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the diagnostics module. 
+
+Configures logging settings and prepares diagnostics for runtime monitoring. 
+
+Definition at line \mbox{\hyperlink{diagnostics_8c_source_l00023}{23}} of file \mbox{\hyperlink{diagnostics_8c_source}{diagnostics.\+c}}.
+
+\Hypertarget{diagnostics_8h_a1ad0b071829a5609b319753343bd1236}\index{diagnostics.h@{diagnostics.h}!diagnostics\_run@{diagnostics\_run}}
+\index{diagnostics\_run@{diagnostics\_run}!diagnostics.h@{diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{diagnostics\_run()}{diagnostics\_run()}}
+{\footnotesize\ttfamily \label{diagnostics_8h_a1ad0b071829a5609b319753343bd1236} 
+void diagnostics\+\_\+run (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Run diagnostics tasks. 
+
+Monitors the system\textquotesingle{}s state, logs important runtime information, and detects potential issues (e.\+g., task overflows, resource limits).
+
+This function monitors the system\textquotesingle{}s state, logs important runtime information, and detects potential issues (e.\+g., task overflows, resource limits). 
+
+Definition at line \mbox{\hyperlink{diagnostics_8c_source_l00037}{37}} of file \mbox{\hyperlink{diagnostics_8c_source}{diagnostics.\+c}}.
+

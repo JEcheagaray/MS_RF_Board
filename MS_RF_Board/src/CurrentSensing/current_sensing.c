@@ -12,15 +12,14 @@
 #include "current_sensing.h"
 #include "esp_log.h"
 #include "esp_adc/adc_oneshot.h"
-#include "esp_adc_cal.h"
+#include "esp_adc/adc_cali.h"
+#include "esp_adc/adc_cali_scheme.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-
 
 #define TAG "CurrentSensing"
 
 // ADC Configuration
-#define ADC_MAX_VALUE 4095
 #define DEFAULT_VREF 1100  // Default reference voltage in mV
 #define CURRENT_SENSE_RESISTOR 0.015  // Shunt resistor value in ohms (15 mΩ)
 #define CURRENT_SENSE_GAIN 20.0       // Amplification gain of the current sensing circuit
@@ -31,7 +30,13 @@ static float app_current_limit = CURRENT_LIMIT_SAFE;  // Default to safety limit
 static float last_measurements[2][5] = {{0}, {0}};  // Buffers for debouncing (Sensor1 and Sensor2)
 static int measurement_index[2] = {0, 0};
 
-static esp_adc_cal_characteristics_t *adc_chars;  // ADC calibration characteristics
+// ADC handle and calibration
+static adc_oneshot_unit_handle_t adc_handle;
+static adc_cali_handle_t cali_handle;
+
+// ADC Channels
+#define SENSOR_1_CHANNEL ADC_CHANNEL_4  // GPIO32
+#define SENSOR_2_CHANNEL ADC_CHANNEL_7  // GPIO35
 
 /**
  * @brief Initialize the current sensing module.
@@ -41,12 +46,30 @@ static esp_adc_cal_characteristics_t *adc_chars;  // ADC calibration characteris
 void current_sensing_init() {
     ESP_LOGI(TAG, "Initializing current sensing module...");
 
-    adc1_config_width(ADC_WIDTH_BIT_12);  // 12-bit ADC resolution
-    adc1_config_channel_atten(ADC1_CHANNEL_4, ADC_ATTEN_DB_11);  // Sensor 1: GPIO32
-    adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_11);  // Sensor 2: GPIO35
+    // ADC oneshot configuration
+    adc_oneshot_unit_init_cfg_t adc_config = {
+        .unit_id = ADC_UNIT_1
+    };
+    adc_oneshot_new_unit(&adc_config, &adc_handle);
 
-    adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
-    esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
+    // Configure channels
+    adc_oneshot_chan_cfg_t channel_config = {
+        .bitwidth = ADC_BITWIDTH_DEFAULT,
+        .atten = ADC_ATTEN_DB_12  // Updated to recommended value
+    };
+    adc_oneshot_config_channel(adc_handle, SENSOR_1_CHANNEL, &channel_config);
+    adc_oneshot_config_channel(adc_handle, SENSOR_2_CHANNEL, &channel_config);
+
+    // ADC calibration configuration
+    adc_cali_line_fitting_config_t cali_config = {
+        .unit_id = ADC_UNIT_1,
+        .atten = ADC_ATTEN_DB_12,
+        .bitwidth = ADC_BITWIDTH_DEFAULT
+    };
+    if (adc_cali_create_scheme_line_fitting(&cali_config, &cali_handle) != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to initialize ADC calibration!");
+        cali_handle = NULL;
+    }
 
     ESP_LOGI(TAG, "Current sensing module initialized successfully.");
 }
@@ -60,15 +83,22 @@ void current_sensing_init() {
  * @return The raw load current in amperes.
  */
 static float read_raw_current(current_sensor_t sensor) {
-    int adc_reading = 0;
+    int adc_raw = 0;
+    int voltage = 0;  // Use `int` instead of `uint32_t` as required by `adc_cali_raw_to_voltage`
 
     if (sensor == SENSOR_1) {
-        adc_reading = adc1_get_raw(ADC1_CHANNEL_4);  // GPIO32
+        adc_oneshot_read(adc_handle, SENSOR_1_CHANNEL, &adc_raw);
     } else if (sensor == SENSOR_2) {
-        adc_reading = adc1_get_raw(ADC1_CHANNEL_7);  // GPIO35
+        adc_oneshot_read(adc_handle, SENSOR_2_CHANNEL, &adc_raw);
     }
 
-    uint32_t voltage = esp_adc_cal_raw_to_voltage(adc_reading, adc_chars);  // Calibrated voltage in mV
+    if (cali_handle) {
+        adc_cali_raw_to_voltage(cali_handle, adc_raw, &voltage);  // Calibrated voltage in mV
+    } else {
+        ESP_LOGW(TAG, "ADC calibration not available. Using raw value.");
+        voltage = adc_raw;  // Use raw ADC reading if calibration is unavailable
+    }
+
     float current = ((float)voltage / 1000.0) / (CURRENT_SENSE_RESISTOR * CURRENT_SENSE_GAIN);  // Current in amperes
     return current;
 }
@@ -144,6 +174,9 @@ float current_sensing_get_limit() {
  */
 void current_sensing_deinit() {
     ESP_LOGI(TAG, "Deinitializing current sensing module...");
-    free(adc_chars);
+    if (cali_handle) {
+        adc_cali_delete_scheme_line_fitting(cali_handle);
+    }
+    adc_oneshot_del_unit(adc_handle);
     ESP_LOGI(TAG, "Current sensing module deinitialized.");
 }

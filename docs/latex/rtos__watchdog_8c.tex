@@ -1,0 +1,133 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+RTOS/rtos\+\_\+watchdog.c File Reference}
+\hypertarget{rtos__watchdog_8c}{}\label{rtos__watchdog_8c}\index{MS\_RF\_Board/src/RTOS/rtos\_watchdog.c@{MS\_RF\_Board/src/RTOS/rtos\_watchdog.c}}
+
+
+Watchdog Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include "{}rtos\+\_\+watchdog.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+task\+\_\+wdt.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{rtos__watchdog_8c_a0ccf663e6e19439e20decae74816f57b}{rtos\+\_\+watchdog\+\_\+init}} (int timeout\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Initialize the Task Watchdog Timer (TWT). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtos__watchdog_8c_a5bf2492b40f0a51b128c5ef5a0bdec73}{rtos\+\_\+watchdog\+\_\+feed}} ()
+\begin{DoxyCompactList}\small\item\em Feed the Task Watchdog Timer (TWT). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtos__watchdog_8c_a698283f09ffe2f6f19add2d72bec3645}{rtos\+\_\+watchdog\+\_\+add\+\_\+task}} (Task\+Handle\+\_\+t task\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em Add a task to the watchdog timer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtos__watchdog_8c_abd9f016d062030eb9850083e23774805}{rtos\+\_\+watchdog\+\_\+remove\+\_\+task}} (Task\+Handle\+\_\+t task\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em Remove a task from the watchdog timer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtos__watchdog_8c_adc75e54deb5370f64c667706259a0661}{rtos\+\_\+watchdog\+\_\+deinit}} ()
+\begin{DoxyCompactList}\small\item\em Deinitialize the RTOS Watchdog. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Watchdog Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This module initializes and manages the watchdog functionality for the system, ensuring tasks are running as expected and the system remains responsive.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{rtos__watchdog_8c_source}{rtos\+\_\+watchdog.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{rtos__watchdog_8c_a698283f09ffe2f6f19add2d72bec3645}\index{rtos\_watchdog.c@{rtos\_watchdog.c}!rtos\_watchdog\_add\_task@{rtos\_watchdog\_add\_task}}
+\index{rtos\_watchdog\_add\_task@{rtos\_watchdog\_add\_task}!rtos\_watchdog.c@{rtos\_watchdog.c}}
+\doxysubsubsection{\texorpdfstring{rtos\_watchdog\_add\_task()}{rtos\_watchdog\_add\_task()}}
+{\footnotesize\ttfamily \label{rtos__watchdog_8c_a698283f09ffe2f6f19add2d72bec3645} 
+void rtos\+\_\+watchdog\+\_\+add\+\_\+task (\begin{DoxyParamCaption}\item[{Task\+Handle\+\_\+t}]{task\+\_\+handle}{}\end{DoxyParamCaption})}
+
+
+
+Add a task to the watchdog timer. 
+
+Monitors an additional task by adding it to the Task Watchdog Timer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+handle} & Handle of the task to be monitored. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{rtos__watchdog_8c_source_l00057}{57}} of file \mbox{\hyperlink{rtos__watchdog_8c_source}{rtos\+\_\+watchdog.\+c}}.
+
+\Hypertarget{rtos__watchdog_8c_adc75e54deb5370f64c667706259a0661}\index{rtos\_watchdog.c@{rtos\_watchdog.c}!rtos\_watchdog\_deinit@{rtos\_watchdog\_deinit}}
+\index{rtos\_watchdog\_deinit@{rtos\_watchdog\_deinit}!rtos\_watchdog.c@{rtos\_watchdog.c}}
+\doxysubsubsection{\texorpdfstring{rtos\_watchdog\_deinit()}{rtos\_watchdog\_deinit()}}
+{\footnotesize\ttfamily \label{rtos__watchdog_8c_adc75e54deb5370f64c667706259a0661} 
+void rtos\+\_\+watchdog\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the RTOS Watchdog. 
+
+Stops the Task Watchdog Timer (TWDT) and removes tasks from its monitoring list. 
+
+Definition at line \mbox{\hyperlink{rtos__watchdog_8c_source_l00083}{83}} of file \mbox{\hyperlink{rtos__watchdog_8c_source}{rtos\+\_\+watchdog.\+c}}.
+
+\Hypertarget{rtos__watchdog_8c_a5bf2492b40f0a51b128c5ef5a0bdec73}\index{rtos\_watchdog.c@{rtos\_watchdog.c}!rtos\_watchdog\_feed@{rtos\_watchdog\_feed}}
+\index{rtos\_watchdog\_feed@{rtos\_watchdog\_feed}!rtos\_watchdog.c@{rtos\_watchdog.c}}
+\doxysubsubsection{\texorpdfstring{rtos\_watchdog\_feed()}{rtos\_watchdog\_feed()}}
+{\footnotesize\ttfamily \label{rtos__watchdog_8c_a5bf2492b40f0a51b128c5ef5a0bdec73} 
+void rtos\+\_\+watchdog\+\_\+feed (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Feed the Task Watchdog Timer (TWT). 
+
+Resets the watchdog timer to prevent system reset. 
+
+Definition at line \mbox{\hyperlink{rtos__watchdog_8c_source_l00046}{46}} of file \mbox{\hyperlink{rtos__watchdog_8c_source}{rtos\+\_\+watchdog.\+c}}.
+
+\Hypertarget{rtos__watchdog_8c_a0ccf663e6e19439e20decae74816f57b}\index{rtos\_watchdog.c@{rtos\_watchdog.c}!rtos\_watchdog\_init@{rtos\_watchdog\_init}}
+\index{rtos\_watchdog\_init@{rtos\_watchdog\_init}!rtos\_watchdog.c@{rtos\_watchdog.c}}
+\doxysubsubsection{\texorpdfstring{rtos\_watchdog\_init()}{rtos\_watchdog\_init()}}
+{\footnotesize\ttfamily \label{rtos__watchdog_8c_a0ccf663e6e19439e20decae74816f57b} 
+void rtos\+\_\+watchdog\+\_\+init (\begin{DoxyParamCaption}\item[{int}]{timeout\+\_\+s}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the Task Watchdog Timer (TWT). 
+
+Configures the watchdog timer for periodic monitoring of tasks.
+
+
+\begin{DoxyParams}{Parameters}
+{\em timeout\+\_\+s} & Watchdog timeout in seconds before triggering a reset. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{rtos__watchdog_8c_source_l00024}{24}} of file \mbox{\hyperlink{rtos__watchdog_8c_source}{rtos\+\_\+watchdog.\+c}}.
+
+\Hypertarget{rtos__watchdog_8c_abd9f016d062030eb9850083e23774805}\index{rtos\_watchdog.c@{rtos\_watchdog.c}!rtos\_watchdog\_remove\_task@{rtos\_watchdog\_remove\_task}}
+\index{rtos\_watchdog\_remove\_task@{rtos\_watchdog\_remove\_task}!rtos\_watchdog.c@{rtos\_watchdog.c}}
+\doxysubsubsection{\texorpdfstring{rtos\_watchdog\_remove\_task()}{rtos\_watchdog\_remove\_task()}}
+{\footnotesize\ttfamily \label{rtos__watchdog_8c_abd9f016d062030eb9850083e23774805} 
+void rtos\+\_\+watchdog\+\_\+remove\+\_\+task (\begin{DoxyParamCaption}\item[{Task\+Handle\+\_\+t}]{task\+\_\+handle}{}\end{DoxyParamCaption})}
+
+
+
+Remove a task from the watchdog timer. 
+
+Stops monitoring a task by removing it from the Task Watchdog Timer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+handle} & Handle of the task to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{rtos__watchdog_8c_source_l00071}{71}} of file \mbox{\hyperlink{rtos__watchdog_8c_source}{rtos\+\_\+watchdog.\+c}}.
+

@@ -1,0 +1,177 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Current\+Sensing/current\+\_\+sensing.h File Reference}
+\hypertarget{current__sensing_8h}{}\label{current__sensing_8h}\index{MS\_RF\_Board/src/CurrentSensing/current\_sensing.h@{MS\_RF\_Board/src/CurrentSensing/current\_sensing.h}}
+
+
+Header file for Current Sensing Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070a}{current\+\_\+sensor\+\_\+t}} \{ \mbox{\hyperlink{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070aae22c3912f49ac41a1d8bea9e5a230488}{SENSOR\+\_\+1}}
+, \mbox{\hyperlink{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070aaccdbcdb24d1f54e96b6fdb67e049092b}{SENSOR\+\_\+2}}
+ \}
+\begin{DoxyCompactList}\small\item\em Current sensor enumeration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{current__sensing_8h_aa75691cb79f1ecbbf9f87d8bf9871965}{current\+\_\+sensing\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the current sensing module. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{current__sensing_8h_a2fd520948a1a94b10b169c14024f124d}{current\+\_\+sensing\+\_\+get\+\_\+debounced}} (\mbox{\hyperlink{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070a}{current\+\_\+sensor\+\_\+t}} sensor)
+\begin{DoxyCompactList}\small\item\em Get the debounced current measurement from a specific sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{current__sensing_8h_a02ab152d88925df2488ace8826f6fb92}{current\+\_\+sensing\+\_\+process}} (void)
+\begin{DoxyCompactList}\small\item\em Cyclically process current updates for all sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{current__sensing_8h_a4b5de34fc5ae069707ad8fa60a680621}{current\+\_\+sensing\+\_\+set\+\_\+limit}} (float limit)
+\begin{DoxyCompactList}\small\item\em Set the app-\/defined current limit. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{current__sensing_8h_a71facd3212dd2eed51eb215c551b932b}{current\+\_\+sensing\+\_\+get\+\_\+limit}} (void)
+\begin{DoxyCompactList}\small\item\em Get the app-\/defined current limit. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{current__sensing_8h_a1504102c809b88db18713f3a1ecc197e}{current\+\_\+sensing\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize the current sensing module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for Current Sensing Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides the declarations for monitoring current from two sensors, SENSOR\+\_\+1 and SENSOR\+\_\+2, and interfaces to retrieve raw and debounced measurements. It also defines a cyclic process to ensure regular updates of current readings.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{current__sensing_8h_source}{current\+\_\+sensing.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070a}\index{current\_sensing.h@{current\_sensing.h}!current\_sensor\_t@{current\_sensor\_t}}
+\index{current\_sensor\_t@{current\_sensor\_t}!current\_sensing.h@{current\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{current\_sensor\_t}{current\_sensor\_t}}
+{\footnotesize\ttfamily \label{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070a} 
+enum \mbox{\hyperlink{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070a}{current\+\_\+sensor\+\_\+t}}}
+
+
+
+Current sensor enumeration. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SENSOR\_1@{SENSOR\_1}!current\_sensing.h@{current\_sensing.h}}\index{current\_sensing.h@{current\_sensing.h}!SENSOR\_1@{SENSOR\_1}}}\Hypertarget{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070aae22c3912f49ac41a1d8bea9e5a230488}\label{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070aae22c3912f49ac41a1d8bea9e5a230488} 
+SENSOR\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SENSOR\_2@{SENSOR\_2}!current\_sensing.h@{current\_sensing.h}}\index{current\_sensing.h@{current\_sensing.h}!SENSOR\_2@{SENSOR\_2}}}\Hypertarget{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070aaccdbcdb24d1f54e96b6fdb67e049092b}\label{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070aaccdbcdb24d1f54e96b6fdb67e049092b} 
+SENSOR\+\_\+2&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{current__sensing_8h_source_l00018}{18}} of file \mbox{\hyperlink{current__sensing_8h_source}{current\+\_\+sensing.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{current__sensing_8h_a1504102c809b88db18713f3a1ecc197e}\index{current\_sensing.h@{current\_sensing.h}!current\_sensing\_deinit@{current\_sensing\_deinit}}
+\index{current\_sensing\_deinit@{current\_sensing\_deinit}!current\_sensing.h@{current\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{current\_sensing\_deinit()}{current\_sensing\_deinit()}}
+{\footnotesize\ttfamily \label{current__sensing_8h_a1504102c809b88db18713f3a1ecc197e} 
+void current\+\_\+sensing\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the current sensing module. 
+
+Cleans up resources used by the current sensing module. 
+
+Definition at line \mbox{\hyperlink{current__sensing_8c_source_l00175}{175}} of file \mbox{\hyperlink{current__sensing_8c_source}{current\+\_\+sensing.\+c}}.
+
+\Hypertarget{current__sensing_8h_a2fd520948a1a94b10b169c14024f124d}\index{current\_sensing.h@{current\_sensing.h}!current\_sensing\_get\_debounced@{current\_sensing\_get\_debounced}}
+\index{current\_sensing\_get\_debounced@{current\_sensing\_get\_debounced}!current\_sensing.h@{current\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{current\_sensing\_get\_debounced()}{current\_sensing\_get\_debounced()}}
+{\footnotesize\ttfamily \label{current__sensing_8h_a2fd520948a1a94b10b169c14024f124d} 
+float current\+\_\+sensing\+\_\+get\+\_\+debounced (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{current__sensing_8h_a785728f49ef7f6245c219ceb32cc070a}{current\+\_\+sensor\+\_\+t}}}]{sensor}{}\end{DoxyParamCaption})}
+
+
+
+Get the debounced current measurement from a specific sensor. 
+
+Averages the last 5 current measurements to provide a stable reading.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor} & The current sensor to retrieve debounced data from (SENSOR\+\_\+1 or SENSOR\+\_\+2). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The debounced load current in amperes. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{current__sensing_8c_source_l00114}{114}} of file \mbox{\hyperlink{current__sensing_8c_source}{current\+\_\+sensing.\+c}}.
+
+\Hypertarget{current__sensing_8h_a71facd3212dd2eed51eb215c551b932b}\index{current\_sensing.h@{current\_sensing.h}!current\_sensing\_get\_limit@{current\_sensing\_get\_limit}}
+\index{current\_sensing\_get\_limit@{current\_sensing\_get\_limit}!current\_sensing.h@{current\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{current\_sensing\_get\_limit()}{current\_sensing\_get\_limit()}}
+{\footnotesize\ttfamily \label{current__sensing_8h_a71facd3212dd2eed51eb215c551b932b} 
+float current\+\_\+sensing\+\_\+get\+\_\+limit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get the app-\/defined current limit. 
+
+\begin{DoxyReturn}{Returns}
+The app-\/defined current limit in amperes. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{current__sensing_8c_source_l00166}{166}} of file \mbox{\hyperlink{current__sensing_8c_source}{current\+\_\+sensing.\+c}}.
+
+\Hypertarget{current__sensing_8h_aa75691cb79f1ecbbf9f87d8bf9871965}\index{current\_sensing.h@{current\_sensing.h}!current\_sensing\_init@{current\_sensing\_init}}
+\index{current\_sensing\_init@{current\_sensing\_init}!current\_sensing.h@{current\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{current\_sensing\_init()}{current\_sensing\_init()}}
+{\footnotesize\ttfamily \label{current__sensing_8h_aa75691cb79f1ecbbf9f87d8bf9871965} 
+void current\+\_\+sensing\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the current sensing module. 
+
+Configures the ADC to read current measurements.
+
+Configures the ADC to read current measurements and sets up calibration. 
+
+Definition at line \mbox{\hyperlink{current__sensing_8c_source_l00046}{46}} of file \mbox{\hyperlink{current__sensing_8c_source}{current\+\_\+sensing.\+c}}.
+
+\Hypertarget{current__sensing_8h_a02ab152d88925df2488ace8826f6fb92}\index{current\_sensing.h@{current\_sensing.h}!current\_sensing\_process@{current\_sensing\_process}}
+\index{current\_sensing\_process@{current\_sensing\_process}!current\_sensing.h@{current\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{current\_sensing\_process()}{current\_sensing\_process()}}
+{\footnotesize\ttfamily \label{current__sensing_8h_a02ab152d88925df2488ace8826f6fb92} 
+void current\+\_\+sensing\+\_\+process (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Cyclically process current updates for all sensors. 
+
+This function is called periodically to ensure the buffers for all sensors are updated. 
+
+Definition at line \mbox{\hyperlink{current__sensing_8c_source_l00146}{146}} of file \mbox{\hyperlink{current__sensing_8c_source}{current\+\_\+sensing.\+c}}.
+
+\Hypertarget{current__sensing_8h_a4b5de34fc5ae069707ad8fa60a680621}\index{current\_sensing.h@{current\_sensing.h}!current\_sensing\_set\_limit@{current\_sensing\_set\_limit}}
+\index{current\_sensing\_set\_limit@{current\_sensing\_set\_limit}!current\_sensing.h@{current\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{current\_sensing\_set\_limit()}{current\_sensing\_set\_limit()}}
+{\footnotesize\ttfamily \label{current__sensing_8h_a4b5de34fc5ae069707ad8fa60a680621} 
+void current\+\_\+sensing\+\_\+set\+\_\+limit (\begin{DoxyParamCaption}\item[{float}]{limit}{}\end{DoxyParamCaption})}
+
+
+
+Set the app-\/defined current limit. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em limit} & The current limit in amperes. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{current__sensing_8c_source_l00156}{156}} of file \mbox{\hyperlink{current__sensing_8c_source}{current\+\_\+sensing.\+c}}.
+

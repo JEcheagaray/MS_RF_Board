@@ -1,0 +1,115 @@
+\doxysection{MS\+\_\+\+RF\+\_\+\+Board/src/\+Voltage\+Sensing/voltage\+\_\+sensing.h File Reference}
+\hypertarget{voltage__sensing_8h}{}\label{voltage__sensing_8h}\index{MS\_RF\_Board/src/VoltageSensing/voltage\_sensing.h@{MS\_RF\_Board/src/VoltageSensing/voltage\_sensing.h}}
+
+
+Header file for Voltage Sensing Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{voltage__sensing_8h_a7ddb9db5bb84a92112778cd5b6ad7dc0}{voltage\+\_\+sensing\+\_\+init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the voltage sensing module. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{voltage__sensing_8h_a3f14b5fc8c36a87a35842f05150f9641}{voltage\+\_\+sensing\+\_\+get\+\_\+debounced}} (void)
+\begin{DoxyCompactList}\small\item\em Get the debounced voltage measurement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{voltage__sensing_8h_ab4ac87651b2879cec938148f904b0dfd}{voltage\+\_\+sensing\+\_\+update}} (void)
+\begin{DoxyCompactList}\small\item\em Update the debounced voltage buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{voltage__sensing_8h_a703fe8effe11543932f0c96936405f5e}{voltage\+\_\+sensing\+\_\+run}} (void)
+\begin{DoxyCompactList}\small\item\em Run the voltage sensing task. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{voltage__sensing_8h_a7347dfa8ba021d71774a03484d5202ce}{voltage\+\_\+sensing\+\_\+deinit}} (void)
+\begin{DoxyCompactList}\small\item\em Deinitialize the voltage sensing module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for Voltage Sensing Software Component (SWC) for MS\+\_\+\+RF\+\_\+\+Board. 
+
+This header provides declarations for monitoring voltage using the VS\+\_\+\+VOUT\+\_\+1 sensor (GPIO33). The module supports raw and debounced measurements.
+
+Note\+: The sensor pin VS\+\_\+\+VOUT\+\_\+2 (GPIO25) was not used because it is connected to ADC2, which may cause conflicts when Wi-\/\+Fi is active. Only VS\+\_\+\+VOUT\+\_\+1 (GPIO33) is used for consistent and reliable voltage sensing.
+
+\begin{DoxyDate}{Date}
+2025-\/01-\/26 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{voltage__sensing_8h_source}{voltage\+\_\+sensing.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{voltage__sensing_8h_a7347dfa8ba021d71774a03484d5202ce}\index{voltage\_sensing.h@{voltage\_sensing.h}!voltage\_sensing\_deinit@{voltage\_sensing\_deinit}}
+\index{voltage\_sensing\_deinit@{voltage\_sensing\_deinit}!voltage\_sensing.h@{voltage\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{voltage\_sensing\_deinit()}{voltage\_sensing\_deinit()}}
+{\footnotesize\ttfamily \label{voltage__sensing_8h_a7347dfa8ba021d71774a03484d5202ce} 
+void voltage\+\_\+sensing\+\_\+deinit (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Deinitialize the voltage sensing module. 
+
+Cleans up resources used by the voltage sensing module. 
+
+Definition at line \mbox{\hyperlink{voltage__sensing_8c_source_l00121}{121}} of file \mbox{\hyperlink{voltage__sensing_8c_source}{voltage\+\_\+sensing.\+c}}.
+
+\Hypertarget{voltage__sensing_8h_a3f14b5fc8c36a87a35842f05150f9641}\index{voltage\_sensing.h@{voltage\_sensing.h}!voltage\_sensing\_get\_debounced@{voltage\_sensing\_get\_debounced}}
+\index{voltage\_sensing\_get\_debounced@{voltage\_sensing\_get\_debounced}!voltage\_sensing.h@{voltage\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{voltage\_sensing\_get\_debounced()}{voltage\_sensing\_get\_debounced()}}
+{\footnotesize\ttfamily \label{voltage__sensing_8h_a3f14b5fc8c36a87a35842f05150f9641} 
+float voltage\+\_\+sensing\+\_\+get\+\_\+debounced (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get the debounced voltage measurement. 
+
+Averages the last 5 voltage measurements to provide a stable reading.
+
+\begin{DoxyReturn}{Returns}
+The debounced load voltage in volts. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{voltage__sensing_8c_source_l00085}{85}} of file \mbox{\hyperlink{voltage__sensing_8c_source}{voltage\+\_\+sensing.\+c}}.
+
+\Hypertarget{voltage__sensing_8h_a7ddb9db5bb84a92112778cd5b6ad7dc0}\index{voltage\_sensing.h@{voltage\_sensing.h}!voltage\_sensing\_init@{voltage\_sensing\_init}}
+\index{voltage\_sensing\_init@{voltage\_sensing\_init}!voltage\_sensing.h@{voltage\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{voltage\_sensing\_init()}{voltage\_sensing\_init()}}
+{\footnotesize\ttfamily \label{voltage__sensing_8h_a7ddb9db5bb84a92112778cd5b6ad7dc0} 
+void voltage\+\_\+sensing\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the voltage sensing module. 
+
+Configures the ADC to read voltage measurements and sets up calibration. 
+
+Definition at line \mbox{\hyperlink{voltage__sensing_8c_source_l00025}{25}} of file \mbox{\hyperlink{voltage__sensing_8c_source}{voltage\+\_\+sensing.\+c}}.
+
+\Hypertarget{voltage__sensing_8h_a703fe8effe11543932f0c96936405f5e}\index{voltage\_sensing.h@{voltage\_sensing.h}!voltage\_sensing\_run@{voltage\_sensing\_run}}
+\index{voltage\_sensing\_run@{voltage\_sensing\_run}!voltage\_sensing.h@{voltage\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{voltage\_sensing\_run()}{voltage\_sensing\_run()}}
+{\footnotesize\ttfamily \label{voltage__sensing_8h_a703fe8effe11543932f0c96936405f5e} 
+void voltage\+\_\+sensing\+\_\+run (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Run the voltage sensing task. 
+
+Updates the debounced buffer and logs the voltage. 
+
+Definition at line \mbox{\hyperlink{voltage__sensing_8c_source_l00110}{110}} of file \mbox{\hyperlink{voltage__sensing_8c_source}{voltage\+\_\+sensing.\+c}}.
+
+\Hypertarget{voltage__sensing_8h_ab4ac87651b2879cec938148f904b0dfd}\index{voltage\_sensing.h@{voltage\_sensing.h}!voltage\_sensing\_update@{voltage\_sensing\_update}}
+\index{voltage\_sensing\_update@{voltage\_sensing\_update}!voltage\_sensing.h@{voltage\_sensing.h}}
+\doxysubsubsection{\texorpdfstring{voltage\_sensing\_update()}{voltage\_sensing\_update()}}
+{\footnotesize\ttfamily \label{voltage__sensing_8h_ab4ac87651b2879cec938148f904b0dfd} 
+void voltage\+\_\+sensing\+\_\+update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Update the debounced voltage buffer. 
+
+Reads the raw voltage and updates the buffer for debouncing. 
+
+Definition at line \mbox{\hyperlink{voltage__sensing_8c_source_l00098}{98}} of file \mbox{\hyperlink{voltage__sensing_8c_source}{voltage\+\_\+sensing.\+c}}.
+
